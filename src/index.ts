@@ -9,7 +9,7 @@ const config = {
 }
 
 async function getChatGPTReply(content) {
-  const api = new ChatGPTAPI({ sessionToken: config.ChatGPTSessionToken})
+  const api = new ChatGPTAPI({ sessionToken: config.ChatGPTSessionToken })
   // ensure the API is properly authenticated (optional)
   await api.ensureAuth()
   console.log('content: ', content);
@@ -21,8 +21,18 @@ async function getChatGPTReply(content) {
   return response
 }
 
+async function replyMessage(contact, content) {
+  const reply = await getChatGPTReply(content);
+  try {
+    await contact.say(reply);
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 async function onMessage(msg) {
   const contact = msg.talker(); 
+  const receiver = msg.to(); 
   const content = msg.text();
   const room = msg.room(); 
   const alias = await contact.alias() || await contact.name();
@@ -34,16 +44,15 @@ async function onMessage(msg) {
   if (room && isText) {
     const topic = await room.topic();
     console.log(`Group name: ${topic} talker: ${await contact.name()} content: ${content}`);
+    if (await msg.mentionSelf()) {
+      const [groupContent] = content.split(`@${receiver.name}`).filter(item => item.trim())
+      replyMessage(room, groupContent)
+    }
   } else if (isText) {
     console.log(`talker: ${alias} content: ${content}`);
-     if (config.AutoReply) {
+    if (config.AutoReply) {
       if (content) {
-        const reply = await getChatGPTReply(content);
-        try {
-          await contact.say(reply);
-        } catch (e) {
-          console.error(e);
-        }
+        replyMessage(contact, content)
       }
     }
   }
