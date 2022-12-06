@@ -86,5 +86,5 @@ bot.on('message', onMessage);
 
 bot
   .start()
-  .then(() => console.log('Start to log on wechat...'))
+  .then(() => console.log('Start to log in wechat...'))
   .catch((e) => console.error(e));
