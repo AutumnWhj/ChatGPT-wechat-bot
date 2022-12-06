@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import externals from 'rollup-plugin-node-externals'
+import typescript from '@rollup/plugin-typescript'
 
 const footer = `
 if(typeof window !== 'undefined') {
@@ -11,7 +12,7 @@ if(typeof window !== 'undefined') {
 }`
 
 export default {
-  input: './src/index.js',
+  input: './src/index.ts',
   output: [
     {
       file: pkg.module,
@@ -20,5 +21,5 @@ export default {
     }
   ],
   external: [''],
-  plugins: [externals(), commonjs(), resolve(), json()]
+  plugins: [externals(), typescript(), commonjs(), resolve(), json()]
 }

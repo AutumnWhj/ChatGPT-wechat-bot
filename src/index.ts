@@ -3,17 +3,19 @@ import { ChatGPTAPI } from 'chatgpt'
 import qrcodeTerminal from 'qrcode-terminal'
 
 const config = {
-  AUTOREPLY: true,
+  AutoReply: true,
+  MakeFriend: true,
   ChatGPTSessionToken: ''
 }
 
 async function getChatGPTReply(content) {
   const api = new ChatGPTAPI({ sessionToken: config.ChatGPTSessionToken})
   // ensure the API is properly authenticated (optional)
-  const ensureAuth = await api.ensureAuth()
+  await api.ensureAuth()
   console.log('content: ', content);
   // send a message and wait for the response
   const response = await api.sendMessage(content)
+  //TODO: format response to compatible with wechat messages
   console.log('response: ', response);
   // response is a markdown-formatted string
   return response
@@ -34,7 +36,7 @@ async function onMessage(msg) {
     console.log(`Group name: ${topic} talker: ${await contact.name()} content: ${content}`);
   } else if (isText) {
     console.log(`talker: ${alias} content: ${content}`);
-     if (config.AUTOREPLY) {
+     if (config.AutoReply) {
       if (content) {
         const reply = await getChatGPTReply(content);
         try {
@@ -62,7 +64,7 @@ async function onLogin(user) {
   console.log(`${user} has logged in`);
   const date = new Date()
   console.log(`Current time:${date}`);
-  if (config.AUTOREPLY) {
+  if (config.AutoReply) {
     console.log(`Automatic robot chat mode has been activated`);
   }
 }
@@ -70,6 +72,17 @@ async function onLogin(user) {
 function onLogout(user) {
   console.log(`${user} has logged out`);
 }
+async function onFriendShip(friendship) {
+  const frienddShipRe = /chatgpt|chat/
+  if (friendship.type() === 2) {
+    console.log('friendship.hello()----', friendship.hello());
+    if (frienddShipRe.test(friendship.hello())) {
+      await friendship.accept()
+    }
+  }
+}
+
+
 
 const bot = WechatyBuilder.build({
   name: 'WechatEveryDay',
@@ -82,9 +95,15 @@ const bot = WechatyBuilder.build({
 bot.on('scan', onScan);
 bot.on('login', onLogin);
 bot.on('logout', onLogout);
-bot.on('message', onMessage);
+bot.on('message', onMessage)
+if (config.MakeFriend) {
+  bot.on('friendship', onFriendShip);
+}
+
 
 bot
   .start()
   .then(() => console.log('Start to log in wechat...'))
   .catch((e) => console.error(e));
+
+
