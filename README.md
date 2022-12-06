@@ -21,7 +21,7 @@ Refer to this article: [https://github.com/transitive-bullshit/chatgpt-api](http
 
 2. Now, you should fill your Token value into the ChatGPTSessionToken in the directory src/index.js， then run this project on local.
 ```javascript
-// install dependences
+// install dependencies
 npm/pnpm i
 
 // dev
