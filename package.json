@@ -35,5 +35,8 @@
     "rollup": "^2.68.0",
     "rollup-plugin-node-externals": "^4.0.0",
     "tslib": "^2.4.1"
+  },
+  "volta": {
+    "node": "16.18.0"
   }
 }
