@@ -24,11 +24,16 @@ Refer to this article: [https://github.com/transitive-bullshit/chatgpt-api](http
 // install dependences
 npm/pnpm i
 
+// dev
+npm/pnpm run dev
+
+// or 
+
 // build
 npm/pnpm run build
+// run lib
+node lib/bundle.esm.js
 
-// start
-npm/pnpm run start
 ```
 
 3. you can see your logs, and scan qrcode to log in wechat.
