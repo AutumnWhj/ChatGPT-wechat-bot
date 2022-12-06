@@ -22,13 +22,13 @@ Refer to this article: [https://github.com/transitive-bullshit/chatgpt-api](http
 2. Now, you should fill your Token value into the ChatGPTSessionToken in the directory src/index.js， then run this project on local.
 ```javascript
 // install dependences
-npm i
+npm/pnpm i
 
 // build
-npm run build
+npm/pnpm run build
 
-// run lib
-node lib/bundle.esm.js
+// start
+npm/pnpm run start
 ```
 
 3. you can see your logs, and scan qrcode to log in wechat.

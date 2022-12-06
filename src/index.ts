@@ -84,7 +84,6 @@ function onLogout(user) {
 async function onFriendShip(friendship) {
   const frienddShipRe = /chatgpt|chat/
   if (friendship.type() === 2) {
-    console.log('friendship.hello()----', friendship.hello());
     if (frienddShipRe.test(friendship.hello())) {
       await friendship.accept()
     }

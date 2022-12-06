@@ -7,12 +7,14 @@
   "module": "lib/bundle.esm.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
+    "start": "node lib/bundle.esm.js",
     "build": "rimraf lib/* && rollup -c",
+    "watch": "rimraf lib/* && rollup -c -w",
     "puppet-install": "node node_modules/.bin/wechaty-puppet-install"
   },
   "keywords": [
     "chatgpt",
+    "wechat",
     "wechaty",
     "微信机器人",
     "微信助手"
@@ -20,7 +22,7 @@
   "author": "Jin",
   "license": "ISC",
   "dependencies": {
-    "chatgpt": "^1.1.3",
+    "chatgpt": "^1.2.0",
     "qrcode-terminal": "^0.12.0",
     "wechaty": "^1.20.2",
     "wechaty-puppet-wechat": "^1.18.4"
@@ -34,7 +36,8 @@
     "rimraf": "^3.0.2",
     "rollup": "^2.68.0",
     "rollup-plugin-node-externals": "^4.0.0",
-    "tslib": "^2.4.1"
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.3"
   },
   "volta": {
     "node": "16.18.0"
