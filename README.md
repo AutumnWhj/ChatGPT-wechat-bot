@@ -1,12 +1,39 @@
 
-# ChatGPT wechat-bot
+<h1 align="center">ChatGPT-wechat-bot🤖</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="#" target="_blank">
+    <img alt="License: ISC" src="https://img.shields.io/badge/License-ISC-yellow.svg" />
+  </a>
+</p>
 
-ChatGPT webchart bot is a WeChat assistant based on NodeJS and webchaty. This tool is more convenient for you to  use ChatGPT, you just chat with it as a good friend or a housekeeper.
+> ChatGPT webchart bot is a WeChat assistant based on NodeJS and webchaty. This tool is more convenient for you to  use ChatGPT, you just chat with it as a good friend or a housekeeper.
 
 ## support
 1. can reply message when metioning your bot in room(group) https://github.com/AutumnWhj/ChatGPT-wechat-bot/issues/5
+2. use docker to deploy wechat bot project https://github.com/AutumnWhj/ChatGPT-wechat-bot/issues/9
 
-## How to use?
+## Use with docker 
+```
+// build
+docker build --pull --rm -f "Dockerfile" -t wechatbot:latest "."
+
+// run, and then you will see some logs 
+docker run --name wechatbot wechatbot:latest
+
+```
+
+## QA
+1. If your WeChat cannot log in
+
+Please check the root directory of your project, whether there is a file —— `wechaty-puppet-wechat.memory-card.json`, if so, please delete it and try it again.
+
+2. support env
+```
+"engines": { "node": ">=16", "npm": ">=7" }
+```
+
+## How to get token?
 
 1. Firstly, you should have an OpenAI account,  then follow the steps below to get your token. 
 
@@ -22,15 +49,15 @@ Refer to this article: [https://github.com/transitive-bullshit/chatgpt-api](http
 2. Now, you should fill your Token value into the ChatGPTSessionToken in the directory src/index.js， then run this project on local.
 ```javascript
 // install dependencies
-npm/pnpm i
+npm i
 
 // dev
-npm/pnpm run dev
+npm run dev
 
 // or 
 
 // build
-npm/pnpm run build
+npm run build
 // run lib
 node lib/bundle.esm.js
 
@@ -44,13 +71,5 @@ node lib/bundle.esm.js
 
 ![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670288278607-73beed83-1a42-42db-8404-72ba60bf2c53.png#averageHue=%234d4e4d&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=437&id=uff52651b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=874&originWidth=1398&originalType=binary&ratio=1&rotation=0&showTitle=false&size=543479&status=done&style=none&taskId=ub5559ec7-30f8-4c07-a9f8-1445a659835&title=&width=699)![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670288469581-470c7f45-b3db-4a7e-ab01-32b44b812668.png#averageHue=%23f2f2f2&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=230&id=u97e5b1e5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=460&originWidth=1266&originalType=binary&ratio=1&rotation=0&showTitle=false&size=112172&status=done&style=none&taskId=u7d7970df-3044-4534-910c-fdb7b3d2a5b&title=&width=633)
 
-## QA
-1. If your WeChat cannot log in
 
-Please check the root directory of your project, whether there is a file —— `wechaty-puppet-wechat.memory-card.json`, if so, please delete it and try it again.
-
-2. support env
-```
-"engines": { "node": ">=16", "npm": ">=7" }
-```
 

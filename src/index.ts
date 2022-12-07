@@ -30,8 +30,8 @@ async function getChatGPTReply(content) {
 }
 
 async function replyMessage(contact, content) {
-  const reply = await getChatGPTReply(content);
   try {
+    const reply = await getChatGPTReply(content);
     await contact.say(reply);
   } catch (e) {
     console.error(e);

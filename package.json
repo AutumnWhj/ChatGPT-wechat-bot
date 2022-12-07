@@ -7,7 +7,7 @@
   "module": "lib/bundle.esm.js",
   "type": "module",
   "scripts": {
-    "dev": "pnpm run build && node lib/bundle.esm.js",
+    "dev": "npm run build && node lib/bundle.esm.js",
     "build": "rimraf lib/* && rollup -c",
     "watch": "rimraf lib/* && rollup -c -w",
     "puppet-install": "node node_modules/.bin/wechaty-puppet-install"
