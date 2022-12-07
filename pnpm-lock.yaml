@@ -7,6 +7,7 @@ specifiers:
   '@rollup/plugin-typescript': ^10.0.1
   '@types/node': ^18.11.11
   chatgpt: ^1.2.0
+  p-timeout: ^6.0.0
   qrcode-terminal: ^0.12.0
   rimraf: ^3.0.2
   rollup: ^2.68.0
@@ -18,6 +19,7 @@ specifiers:
 
 dependencies:
   chatgpt: 1.4.0
+  p-timeout: 6.0.0
   qrcode-terminal: 0.12.0
   wechaty: 1.20.2
   wechaty-puppet-wechat: 1.18.4
@@ -2327,6 +2329,11 @@ packages:
     dependencies:
       p-limit: 3.1.0
     dev: true
+
+  /p-timeout/6.0.0:
+    resolution: {integrity: sha512-5iS61MOdUMemWH9CORQRxVXTp9g5K8rPnI9uQpo97aWgsH3vVXKjkIhDi+OgIDmN3Ly9+AZ2fZV01Wut1yzfKA==}
+    engines: {node: '>=14.16'}
+    dev: false
 
   /p-try/2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}

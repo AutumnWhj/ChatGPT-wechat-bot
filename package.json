@@ -23,6 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "chatgpt": "^1.2.0",
+    "p-timeout": "^6.0.0",
     "qrcode-terminal": "^0.12.0",
     "wechaty": "^1.20.2",
     "wechaty-puppet-wechat": "^1.18.4"

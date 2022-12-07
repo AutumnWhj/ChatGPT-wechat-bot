@@ -1,5 +1,6 @@
 import { WechatyBuilder } from 'wechaty'
 import { ChatGPTAPI } from 'chatgpt'
+import pTimeout from 'p-timeout'
 import qrcodeTerminal from 'qrcode-terminal'
 
 const config = {
@@ -14,8 +15,15 @@ async function getChatGPTReply(content) {
   await api.ensureAuth()
   console.log('content: ', content);
   // send a message and wait for the response
-  const response = await api.sendMessage(content)
   //TODO: format response to compatible with wechat messages
+  const threeMinutesMs = 3 * 60 * 1000
+  const response = await pTimeout(
+    api.sendMessage(content),
+    {
+      milliseconds: threeMinutesMs,
+      message: 'ChatGPT timed out waiting for response'
+    }
+  )
   console.log('response: ', response);
   // response is a markdown-formatted string
   return response
