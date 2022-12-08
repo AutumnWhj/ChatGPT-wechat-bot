@@ -53,8 +53,8 @@ async function onMessage(msg) {
     const topic = await room.topic();
     console.log(`Group name: ${topic} talker: ${await contact.name()} content: ${content}`);
     if (await msg.mentionSelf()) {
-      const [groupContent] = content.split(`@${receiver.name}`).filter(item => item.trim())
-      replyMessage(room, groupContent)
+      const [groupContent] = content.split(`@${receiver.name()}`).filter(item => item.trim())
+      replyMessage(room, groupContent.trim())
     }
   } else if (isText) {
     console.log(`talker: ${alias} content: ${content}`);
