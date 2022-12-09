@@ -9,16 +9,25 @@ const config = {
   ChatGPTSessionToken: ''
 }
 
-async function getChatGPTReply(content) {
-  const api = new ChatGPTAPI({ sessionToken: config.ChatGPTSessionToken })
-  // ensure the API is properly authenticated (optional)
-  await api.ensureAuth()
+const conversationMap = new Map();
+const chatGPT = new ChatGPTAPI({ sessionToken: config.ChatGPTSessionToken })
+
+function getConversation(contactId: string) {
+  if (conversationMap.has(contactId)) {
+    return conversationMap.get(contactId);
+  }
+  const conversation = chatGPT.getConversation();
+  conversationMap.set(contactId, conversation);
+  return conversation;
+}
+
+async function getChatGPTReply(content, contactId) {
+  const currentConversation = getConversation(contactId);
   console.log('content: ', content);
   // send a message and wait for the response
-  //TODO: format response to compatible with wechat messages
   const threeMinutesMs = 3 * 60 * 1000
   const response = await pTimeout(
-    api.sendMessage(content),
+    currentConversation.sendMessage(content),
     {
       milliseconds: threeMinutesMs,
       message: 'ChatGPT timed out waiting for response'
@@ -29,17 +38,22 @@ async function getChatGPTReply(content) {
   return response
 }
 
-async function replyMessage(contact, content) {
+async function replyMessage(contact, content, contactId) {
   try {
-    const reply = await getChatGPTReply(content);
+    const reply = await getChatGPTReply(content, contactId);
     await contact.say(reply);
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
+    if(e.message.includes('timed out')) {
+      await contact.say('Please try again, ChatGPT timed out waiting for response.');
+    }
+    conversationMap.delete(contactId);
   }
 }
 
 async function onMessage(msg) {
   const contact = msg.talker(); 
+  const contactId = contact.id
   const receiver = msg.to(); 
   const content = msg.text();
   const room = msg.room(); 
@@ -54,13 +68,13 @@ async function onMessage(msg) {
     console.log(`Group name: ${topic} talker: ${await contact.name()} content: ${content}`);
     if (await msg.mentionSelf()) {
       const [groupContent] = content.split(`@${receiver.name()}`).filter(item => item.trim())
-      replyMessage(room, groupContent.trim())
+      replyMessage(room, groupContent.trim(), contactId)
     }
   } else if (isText) {
     console.log(`talker: ${alias} content: ${content}`);
     if (config.AutoReply) {
       if (content) {
-        replyMessage(contact, content)
+        replyMessage(contact, content, contactId)
       }
     }
   }
@@ -97,8 +111,6 @@ async function onFriendShip(friendship) {
     }
   }
 }
-
-
 
 const bot = WechatyBuilder.build({
   name: 'WechatEveryDay',
