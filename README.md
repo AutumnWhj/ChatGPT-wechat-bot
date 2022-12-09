@@ -26,7 +26,7 @@ docker run --name wechatbot wechatbot:latest
 ## QA
 1. If your WeChat cannot log in
 
-Please check the root directory of your project, whether there is a file —— `wechaty-puppet-wechat.memory-card.json`, if so, please delete it and try it again.
+Please check the root directory of your project, whether there is a file —— `WechatEveryDay.memory-card`, if so, please delete it and try it again.
 
 2. support env
 ```
