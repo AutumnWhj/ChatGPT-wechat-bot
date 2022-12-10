@@ -2,6 +2,7 @@
 import { ChatGPTAPI } from 'chatgpt'
 import pTimeout from 'p-timeout'
 import config from './config'
+import { retryRequest } from './utils'
 
 const conversationMap = new Map();
 const chatGPT = new ChatGPTAPI({ sessionToken: config.chatGPTSessionToken })
@@ -45,7 +46,7 @@ export async function replyMessage(contact, content, contactId) {
       await contact.say('Previous conversation has been reset.');
       return
     }
-    const reply = await getChatGPTReply(content, contactId);
+    const reply = await retryRequest(() => getChatGPTReply(content, contactId), config.retryTimes, 500) ;
     await contact.say(reply);
   } catch (e: any) {
     console.error(e);
