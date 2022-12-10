@@ -18,7 +18,7 @@ const awaitErrorWrap = async <T, U = any>(
 export const retryRequest = async <T>(
   promise: () => Promise<T>,
   retryTimes = 3,
-  retryInterval = 500
+  retryInterval = 10000
 ) => {
   let output: [any, T | null] = [null, null];
 
