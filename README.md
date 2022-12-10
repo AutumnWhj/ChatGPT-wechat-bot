@@ -7,7 +7,8 @@
   </a>
 </p>
 
-> ChatGPT webchart bot is a WeChat assistant based on NodeJS and webchaty. This tool is more convenient for you to  use ChatGPT, you just chat with it as a good friend or a housekeeper.
+> Get a WeChat robot 🤖 based on ChatGPT in a few step.   
+[ 中文文档](README_ZH.md) | English
 
 ## Support
 - [x] Support conversation.
