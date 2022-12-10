@@ -30,6 +30,8 @@
   retryTimes: 3,
   // 在群组中设置唤醒微信机器人的关键词
   groupKey: 'hello',
+  // 在私聊中设置唤醒微信机器人的关键词
+  privateKey: 'hello',
   // 重置上下文的关键词，如可设置为reset
   resetKey: 'reset',
   // 开启会后收到ChatGPT的自动回复
@@ -58,7 +60,7 @@ docker run --name wechatbot wechatbot:latest
   ![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670287051371-acd694da-cd3f-46c4-97c4-96438965f8a4.png#averageHue=%232d3136&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=497&id=u77b3570c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=994&originWidth=1586&originalType=binary&ratio=1&rotation=0&showTitle=false&size=796464&status=done&style=none&taskId=uf4e7e669-4feb-431a-80b7-f7ab47c9113&title=&width=793)
 >  -  `__Secure-next-auth.session-token`就是你的session token啦。
 
-2. 把  session token 填入目录`src/config.js`下的 `ChatGPTSessionToken` 中，然后在终端运行以下命令。
+2. 把  session token 填入目录`src/config.js`下的 `ChatGPTSessionToken` 中，然后在终端运行以下命令。如有需要，请在`src/config.js`中配置其它配置变量。
 
   ```javascript
     // install dependencies

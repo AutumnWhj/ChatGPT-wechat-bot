@@ -23,17 +23,19 @@
 ## Default config
 ```
 {
-  // 填入你的session token
+  // Fill up with session token
   chatGPTSessionToken: '',
-  // 设置获取消息的重试次数
+  // Setting the number of retries when API error occurs
   retryTimes: 3,
-  // 在群组中设置唤醒微信机器人的关键词
+  // Setting keyword to wake up in group chat
   groupKey: 'hello',
-  // 重置上下文的关键词，如可设置为reset
+  // Setting keyword to wake up in private chat
+  privateKey: 'hello',
+  // Setting keyword to reset context 
   resetKey: 'reset',
-  // 开启会后收到ChatGPT的自动回复
+  // Enabling auto replies from ChatGPT
   autoReply: true, 
-  // 根据正则匹配是否自动通过好友验证
+  // Using regular expression to automatically pass friends verification 
   friendShipRule: /chatgpt|chat/, 
 }
 ```
@@ -59,7 +61,9 @@ docker run --name wechatbot wechatbot:latest
   ![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670287051371-acd694da-cd3f-46c4-97c4-96438965f8a4.png#averageHue=%232d3136&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=497&id=u77b3570c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=994&originWidth=1586&originalType=binary&ratio=1&rotation=0&showTitle=false&size=796464&status=done&style=none&taskId=uf4e7e669-4feb-431a-80b7-f7ab47c9113&title=&width=793)
 >  -  Copy the value for __Secure-next-auth.session-token and save it to your environment.
 
-2. Now, you should **fill your Token value into the `ChatGPTSessionToken` in the directory `src/config.js`**， then run this project on local.
+2. Now, you should **fill your Token value into the `ChatGPTSessionToken` in the directory `src/config.js`**， then run this project on local. 
+
+   *If necessary, configure other customization variables in `src/config.js`.*
 
 ```javascript
 // install dependencies
