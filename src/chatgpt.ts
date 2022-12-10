@@ -23,7 +23,6 @@ function getConversation(contactId: string) {
 
 async function getChatGPTReply(content, contactId) {
   const currentConversation = getConversation(contactId);
-  console.log('content: ', content);
   // send a message and wait for the response
   const threeMinutesMs = 3 * 60 * 1000;
   const response = await pTimeout(currentConversation.sendMessage(content), {
@@ -32,7 +31,7 @@ async function getChatGPTReply(content, contactId) {
   });
   console.log('response: ', response);
   // response is a markdown-formatted string
-  return content + '\n-----------\nReply:' + response;
+  return response;
 }
 
 export async function replyMessage(contact, content, contactId) {
@@ -44,12 +43,18 @@ export async function replyMessage(contact, content, contactId) {
       await contact.say('Previous conversation has been reset.');
       return;
     }
-    const reply = await retryRequest(
+    const message = await retryRequest(
       () => getChatGPTReply(content, contactId),
       config.retryTimes,
       500
     );
-    await contact.say(reply);
+
+    if (contact.topic && contact?.topic()) {
+      const result = content + '\n-----------\n:' + message;
+      await contact.say(result);
+      return;
+    }
+    await contact.say(message);
   } catch (e: any) {
     console.error(e);
     if (e.message.includes('timed out')) {

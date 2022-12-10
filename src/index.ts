@@ -35,7 +35,6 @@ async function onMessage(msg) {
     console.log(`talker: ${alias} content: ${content}`);
     if (config.autoReply) {
       if (content.startsWith(config.privateKey)) {
-        // console.log(`Asking content: ${content.substring(config.CustomParameter.length)}`);
         replyMessage(
           contact,
           content.substring(config.privateKey.length).trim(),
