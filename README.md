@@ -71,6 +71,11 @@ Please check the root directory of your project, whether there is a file —— 
 
 2. This package is ESM-only. It supports: Node.js >= 16.8
 
+3. how to get all response? you can say "continue".
+
+<img width="621" alt="image" src="https://user-images.githubusercontent.com/39156049/206840335-a64ee27c-df4f-4e70-8604-669fc9468910.png">
+
+
 ## 👏🏻Contributions
 
 Welcome to contribute your code and ideas🍵.
