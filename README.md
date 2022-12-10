@@ -21,9 +21,6 @@
 - [ ] Other
 
 ## Default config
-
-## 默认配置
-
 ```
 {
   // 填入你的session token
