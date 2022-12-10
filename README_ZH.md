@@ -41,14 +41,12 @@
 }
 ```
 
-## 用 Docker 运行(支持 ARM)
+## 用 Docker 运行
 
 ```
 // build
 docker build --pull --rm -f "Dockerfile" -t wechatbot:latest "."
 
-// Linux ARM
-docker build --pull --rm -f "Dockerfile" -t wechatbot:latest "." --platform linux/amd64
 
 // run, and then you will see some logs
 docker run --name wechatbot wechatbot:latest
