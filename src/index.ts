@@ -1,55 +1,7 @@
 import { WechatyBuilder } from 'wechaty'
-import { ChatGPTAPI } from 'chatgpt'
-import pTimeout from 'p-timeout'
 import qrcodeTerminal from 'qrcode-terminal'
-
-const config = {
-  AutoReply: true,
-  MakeFriend: true,
-  ChatGPTSessionToken: ''
-}
-
-const conversationMap = new Map();
-const chatGPT = new ChatGPTAPI({ sessionToken: config.ChatGPTSessionToken })
-
-function getConversation(contactId: string) {
-  if (conversationMap.has(contactId)) {
-    return conversationMap.get(contactId);
-  }
-  const conversation = chatGPT.getConversation();
-  conversationMap.set(contactId, conversation);
-  return conversation;
-}
-
-async function getChatGPTReply(content, contactId) {
-  const currentConversation = getConversation(contactId);
-  console.log('content: ', content);
-  // send a message and wait for the response
-  const threeMinutesMs = 3 * 60 * 1000
-  const response = await pTimeout(
-    currentConversation.sendMessage(content),
-    {
-      milliseconds: threeMinutesMs,
-      message: 'ChatGPT timed out waiting for response'
-    }
-  )
-  console.log('response: ', response);
-  // response is a markdown-formatted string
-  return response
-}
-
-async function replyMessage(contact, content, contactId) {
-  try {
-    const reply = await getChatGPTReply(content, contactId);
-    await contact.say(reply);
-  } catch (e: any) {
-    console.error(e);
-    if(e.message.includes('timed out')) {
-      await contact.say('Please try again, ChatGPT timed out waiting for response.');
-    }
-    conversationMap.delete(contactId);
-  }
-}
+import config from './config'
+import { replyMessage } from './chatgpt'
 
 async function onMessage(msg) {
   const contact = msg.talker(); 
@@ -68,11 +20,14 @@ async function onMessage(msg) {
     console.log(`Group name: ${topic} talker: ${await contact.name()} content: ${content}`);
     if (await msg.mentionSelf()) {
       const [groupContent] = content.split(`@${receiver.name()}`).filter(item => item.trim())
+      if(config.groupKey && !groupContent.toLocaleLowerCase().includes(config.groupKey.toLocaleLowerCase())) {
+        return
+      }
       replyMessage(room, groupContent.trim(), contactId)
     }
   } else if (isText) {
     console.log(`talker: ${alias} content: ${content}`);
-    if (config.AutoReply) {
+    if (config.autoReply) {
       if (content) {
         replyMessage(contact, content, contactId)
       }
@@ -95,7 +50,7 @@ async function onLogin(user) {
   console.log(`${user} has logged in`);
   const date = new Date()
   console.log(`Current time:${date}`);
-  if (config.AutoReply) {
+  if (config.autoReply) {
     console.log(`Automatic robot chat mode has been activated`);
   }
 }
@@ -104,9 +59,8 @@ function onLogout(user) {
   console.log(`${user} has logged out`);
 }
 async function onFriendShip(friendship) {
-  const frienddShipRe = /chatgpt|chat/
   if (friendship.type() === 2) {
-    if (frienddShipRe.test(friendship.hello())) {
+    if (config.friendShipRule.test(friendship.hello())) {
       await friendship.accept()
     }
   }
@@ -120,11 +74,11 @@ const bot = WechatyBuilder.build({
   }
 })
 
-bot.on('scan', onScan);
-bot.on('login', onLogin);
-bot.on('logout', onLogout);
-bot.on('message', onMessage)
-if (config.MakeFriend) {
+bot.on('scan', onScan)
+  .on('login', onLogin)
+  .on('logout', onLogout)
+  .on('message', onMessage)
+if (config.friendShipRule) {
   bot.on('friendship', onFriendShip);
 }
 
