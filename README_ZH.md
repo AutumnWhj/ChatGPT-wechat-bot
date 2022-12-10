@@ -11,13 +11,33 @@
 [English](README.md) | 中文文档
 
 ## Support
-- [x] 支持上下文语境的对话.
-- [x] 支持通过关键词重置对话的上下文语境.
-- [x] 支持在群聊@你的机器人🤖.
-- [x] 支持通过关键词唤醒你的机器人🤖.
-- [x] 支持Docker运行.
-- [ ] 捕获错误❎并重试.
+- [x] 支持上下文语境的对话。
+- [x] 支持重置上下文语境，通过关键词(reset)重置对话上下文语境。
+- [x] 支持在群聊@你的机器人🤖，@机器人即可收到回复。
+- [x] 支持通过关键词唤醒你的机器人，如当在群组中发送“@机器人 hello xxxx”时才会收到回复。
+- [x] 支持Docker运行。
+- [x] 支持设置重试次数，当请求ChatGPT错误时，会自动重试。
+- [ ] 捕获错误并重试。
 - [ ] 其他
+
+## 默认配置
+
+```
+{
+  // 填入你的session token
+  chatGPTSessionToken: '',
+  // 设置获取消息的重试次数
+  retryTimes: 3,
+  // 在群组中设置唤醒微信机器人的关键词
+  groupKey: 'hello',
+  // 重置上下文的关键词，如可设置为reset
+  resetKey: 'reset',
+  // 开启会后收到ChatGPT的自动回复
+  autoReply: true, 
+  // 根据正则匹配是否自动通过好友验证
+  friendShipRule: /chatgpt|chat/, 
+}
+```
 
 ## 用Docker运行 
 ```
@@ -65,8 +85,11 @@ docker run --name wechatbot wechatbot:latest
 1. If your WeChat cannot log in
 Please check the root directory of your project, whether there is a file —— `WechatEveryDay.memory-card`, if so, please delete it and try it again.
 
-2. This package is ESM-only. It supports: Node.js >= 16.8
+2. 支持的node版本: Node.js >= 16.8
 
+3. 因为ChatGPT的长度限制，如果回复消息不完整，可以对它说"请继续" 或者 "请继续写完"。
+
+    <img width="621" alt="image" src="https://user-images.githubusercontent.com/39156049/206840335-a64ee27c-df4f-4e70-8604-669fc9468910.png">
 ## 👏🏻欢迎一起共建
 
 欢迎贡献你的代码以及想法🍵。

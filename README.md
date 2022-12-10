@@ -16,8 +16,30 @@
 - [x] Support replying message when mentioning your bot in the group.
 - [x] Set the keywords to wake up the WeChat robot in the group.
 - [x] Support Dockerfile to deploy.
+- [x] Support set retry times when request ChatGPT.
 - [ ] Catch conversation error and retry.
 - [ ] Other
+
+## Default config
+
+## 默认配置
+
+```
+{
+  // 填入你的session token
+  chatGPTSessionToken: '',
+  // 设置获取消息的重试次数
+  retryTimes: 3,
+  // 在群组中设置唤醒微信机器人的关键词
+  groupKey: 'hello',
+  // 重置上下文的关键词，如可设置为reset
+  resetKey: 'reset',
+  // 开启会后收到ChatGPT的自动回复
+  autoReply: true, 
+  // 根据正则匹配是否自动通过好友验证
+  friendShipRule: /chatgpt|chat/, 
+}
+```
 
 ## Use with docker 
 ```
@@ -73,7 +95,7 @@ Please check the root directory of your project, whether there is a file —— 
 
 3. how to get all response? you can say "continue".
 
-<img width="621" alt="image" src="https://user-images.githubusercontent.com/39156049/206840335-a64ee27c-df4f-4e70-8604-669fc9468910.png">
+    <img width="621" alt="image" src="https://user-images.githubusercontent.com/39156049/206840335-a64ee27c-df4f-4e70-8604-669fc9468910.png">
 
 
 ## 👏🏻Contributions
