@@ -23,13 +23,16 @@ async function onMessage(msg) {
 
     const pattern = RegExp(`@${receiver.name()}${config.groupKey}`);
     const trimContent = content.trim();
-    if ((await msg.mentionSelf()) && pattern.test(trimContent)) {
+    if (await msg.mentionSelf()) {
       const groupContent = content.replace(pattern, '');
-      replyMessage(room, groupContent, contactId);
-    } else {
-      console.log(
-        'Content is not within the scope of the customizition format'
-      );
+      if (pattern.test(trimContent)) {
+        replyMessage(room, groupContent, contactId);
+        return;
+      } else {
+        console.log(
+          'Content is not within the scope of the customizition format'
+        );
+      }
     }
   } else if (isText) {
     console.log(`talker: ${alias} content: ${content}`);

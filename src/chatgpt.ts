@@ -50,7 +50,7 @@ export async function replyMessage(contact, content, contactId) {
     );
 
     if (contact.topic && contact?.topic()) {
-      const result = content + '\n-----------\n:' + message;
+      const result = content + '\n-----------\n' + message;
       await contact.say(result);
       return;
     }
