@@ -65,5 +65,8 @@ docker run --name wechatbot wechatbot:latest
 1. If your WeChat cannot log in
 Please check the root directory of your project, whether there is a file —— `WechatEveryDay.memory-card`, if so, please delete it and try it again.
 
-2. Compatibility
-This package is ESM-only. It supports: Node.js >= 16.8
+2. This package is ESM-only. It supports: Node.js >= 16.8
+
+## 👏🏻欢迎一起共建
+
+欢迎贡献你的代码以及想法🍵。
