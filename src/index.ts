@@ -3,8 +3,6 @@ import qrcodeTerminal from 'qrcode-terminal';
 import config from './config';
 import { replyMessage } from './chatgpt';
 
-const pattern = RegExp('@.*' + config.groupKey + ' ');
-
 async function onMessage(msg) {
   const contact = msg.talker();
   const contactId = contact.id;
@@ -22,14 +20,12 @@ async function onMessage(msg) {
     console.log(
       `Group name: ${topic} talker: ${await contact.name()} content: ${content}`
     );
-    if ((await msg.mentionSelf()) && pattern.test(content)) {
+
+    const pattern = RegExp(`@${receiver.name()}${config.groupKey}`);
+    const trimContent = content.trim();
+    if ((await msg.mentionSelf()) && pattern.test(trimContent)) {
       const groupContent = content.replace(pattern, '');
-      if (groupContent) {
-        // console.log(`Asking content: ${groupContent}`);
-        replyMessage(room, groupContent.trim(), contactId);
-      } else {
-        console.log('Content is empty');
-      }
+      replyMessage(room, groupContent, contactId);
     } else {
       console.log(
         'Content is not within the scope of the customizition format'

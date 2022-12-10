@@ -4,9 +4,9 @@ export default {
   // 设置获取消息的重试次数
   retryTimes: 3,
   // 在群组中设置唤醒微信机器人的关键词
-  groupKey: 'hello',
+  groupKey: '',
   // 在私聊中设置唤醒微信机器人的关键词
-  privateKey: 'hello',
+  privateKey: '',
   // 重置上下文的关键词，如可设置为reset
   resetKey: 'reset',
   // 开启会后收到ChatGPT的自动回复
