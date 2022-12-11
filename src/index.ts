@@ -7,7 +7,7 @@ async function onMessage(msg) {
   const contact = msg.talker();
   const contactId = contact.id;
   const receiver = msg.to();
-  const content = msg.text();
+  const content = msg.text().trim();
   const room = msg.room();
   const alias = (await contact.alias()) || (await contact.name());
   const isText = msg.type() === bot.Message.Type.Text;
@@ -21,11 +21,10 @@ async function onMessage(msg) {
       `Group name: ${topic} talker: ${await contact.name()} content: ${content}`
     );
 
-    const pattern = RegExp(`@${receiver.name()}${config.groupKey}`);
-    const trimContent = content.trim();
+    const pattern = RegExp(`^@${receiver.name()}\\s+${config.groupKey}[\\s]*`);
     if (await msg.mentionSelf()) {
-      const groupContent = content.replace(pattern, '');
-      if (pattern.test(trimContent)) {
+      if (pattern.test(content)) {
+        const groupContent = content.replace(pattern, '');
         replyMessage(room, groupContent, contactId);
         return;
       } else {
