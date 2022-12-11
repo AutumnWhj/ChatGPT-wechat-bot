@@ -4,28 +4,32 @@ import config from './config';
 import { replyMessage } from './chatgpt';
 
 async function onMessage(msg) {
+  const isText = msg.type() === bot.Message.Type.Text;
+  if (msg.self() || !isText) return;
   const contact = msg.talker();
   const contactId = contact.id;
-  const receiver = msg.to();
   const content = msg.text().trim();
   const room = msg.room();
-  const alias = (await contact.alias()) || (await contact.name());
-  const isText = msg.type() === bot.Message.Type.Text;
-  if (msg.self()) {
-    return;
-  }
-
-  if (room && isText) {
-    const topic = await room.topic();
-    console.log(
-      `Group name: ${topic} talker: ${await contact.name()} content: ${content}`
+  if (room) {
+    const prePatten = new RegExp(
+      `^${config.groupKey}|@${config.robotName}`,
+      'g'
     );
-
-    const pattern = RegExp(`^@${receiver.name()}\\s+${config.groupKey}[\\s]*`);
-    if (await msg.mentionSelf()) {
+    if (prePatten.test(content)) {
+      const groupContent = content.replace(prePatten, '');
+      replyMessage(room, groupContent, contactId);
+    } else if (await msg.mentionSelf()) {
+      const receiver = msg.to();
+      const pattern = RegExp(
+        `^@${receiver.name()}\\s+${config.groupKey}[\\s]*`
+      );
       if (pattern.test(content)) {
         const groupContent = content.replace(pattern, '');
         replyMessage(room, groupContent, contactId);
+        const topic = await room.topic();
+        console.log(
+          `Group name: ${topic} talker: ${await contact.name()} content: ${content}`
+        );
         return;
       } else {
         console.log(
@@ -33,8 +37,7 @@ async function onMessage(msg) {
         );
       }
     }
-  } else if (isText) {
-    console.log(`talker: ${alias} content: ${content}`);
+  } else {
     if (config.autoReply) {
       if (content.startsWith(config.privateKey)) {
         replyMessage(
@@ -42,6 +45,8 @@ async function onMessage(msg) {
           content.substring(config.privateKey.length).trim(),
           contactId
         );
+        const alias = (await contact.alias()) || (await contact.name());
+        console.log(`talker: ${alias} content: ${content}`);
       } else {
         console.log(
           'Content is not within the scope of the customizition format'
@@ -103,3 +108,11 @@ bot
   .start()
   .then(() => console.log('Start to log in wechat...'))
   .catch((e) => console.error(e));
+
+// avoid some oops make this process unexception exit
+process.on('uncaughtException', (err, origin) => {
+  console.error('[uncaughtException]', err, origin);
+});
+process.on('unhandledRejection', (err, promise) => {
+  console.error('[unhandledRejection]', err);
+});
