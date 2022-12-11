@@ -7,6 +7,8 @@ export default {
   groupKey: '',
   // 在私聊中设置唤醒微信机器人的关键词
   privateKey: '',
+  // 机器人的微信昵称 可用于提高机器人响应速度 选填
+  robotName: '',
   // 重置上下文的关键词，如可设置为reset
   resetKey: 'reset',
   // 开启会后收到ChatGPT的自动回复
