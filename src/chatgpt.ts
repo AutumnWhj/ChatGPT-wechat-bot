@@ -49,12 +49,13 @@ export async function replyMessage(contact, content, contactId) {
       500
     );
 
-    if (contact.topic && contact?.topic()) {
+    if ((contact.topic && contact?.topic() && config.groupReplyMode) || (!contact.topic && config.privateReplyMode)) {
       const result = content + '\n-----------\n' + message;
       await contact.say(result);
       return;
+    } else {
+      await contact.say(message);
     }
-    await contact.say(message);
   } catch (e: any) {
     console.error(e);
     if (e.message.includes('timed out')) {

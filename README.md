@@ -38,6 +38,10 @@
   autoReply: true,
   // Using regular expression to automatically pass friends verification
   friendShipRule: /chatgpt|chat/,
+  // Using reply mode in group chat
+  groupReplyMode: true,
+  // Using reply mode in private chat
+  privateReplyMode: false,
 }
 ```
 

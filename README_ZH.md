@@ -38,6 +38,10 @@
   autoReply: true,
   // 根据正则匹配是否自动通过好友验证
   friendShipRule: /chatgpt|chat/,
+  // 在群聊中用回复的格式进行回复
+  groupReplyMode: true,
+  // 在私聊中用回复的格式进行回复
+  privateReplyMode: false,
 }
 ```
 
