@@ -1,6 +1,8 @@
 FROM node:16-slim
+FROM ubuntu
 
-WORKDIR /code
+
+WORKDIR /app
 
 ADD package.json package-lock.json /code/
 
