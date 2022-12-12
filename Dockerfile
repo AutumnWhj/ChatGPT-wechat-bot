@@ -30,9 +30,8 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 
 RUN  apt-get update \
     && apt-get install -y wget gnupg \
-    && wget -q -O - https://gitlab.com/yyc5/test/-/raw/a7ed9e5920614037a6c35a1076c2197dae8f5b0f/linux_signing_key.pub?inline=false | apt-key add - \
-  && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
-  && apt-get update \
+    && wget -q -O - https://gitlab.com/yyc5/test/-/raw/a7ed9e5920614037a6c35a1076c2197dae8f5b0f/linux_signing_key.pub?inline=false | apt-key add - 
+RUN  apt-get update \ 
   && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
   --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
