@@ -7,7 +7,7 @@ const conversationMap = new Map();
 const chatGPT = new ChatGPTAPI({
   sessionToken: config.chatGPTSessionToken,
   clearanceToken: config.clearanceToken,
-  userAgent: config.userAgent,
+  // userAgent: config.userAgent,
 });
 
 function resetConversation(contactId: string) {
