@@ -2,7 +2,7 @@ FROM node:16-slim
 FROM ubuntu
 
 
-WORKDIR /app
+WORKDIR /code
 
 ADD package.json package-lock.json /code/
 
@@ -38,6 +38,8 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 ADD . /code
+RUN npm i 
+RUN npm install -g npm@9.2.0
 
 
 
