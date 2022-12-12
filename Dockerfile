@@ -35,14 +35,10 @@ RUN  apt-get update \
   && apt-get update \
   && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
   --no-install-recommends \
-  && rm -rf /var/lib/apt/lists/*
+RUN  rm -rf /var/lib/apt/lists/*
 
 ADD . /code
 
-RUN npm run build
-CMD ["node", "lib/bundle.esm.js"]
-
-ADD . /code
 
 
 #此dockerfile文件引导完，需要进一步操作，请看readme文件。引导过程有部分爆红不影响，进度一直向下等待build 好即可。
