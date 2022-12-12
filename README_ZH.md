@@ -9,6 +9,15 @@
 > 几步即可获得一个基于 ChatGPT 的微信机器人 🤖。
 > [English](README.md) | 中文文档
 
+## 注意 ❎
+
+chatGPT 开启了 Cloudflare 保护。现在暂时不能用了。
+<https://github.com/transitive-bullshit/chatgpt-api/issues/96>
+
+小伙伴们可尝试一下这种方法
+
+<https://github.com/transitive-bullshit/chatgpt-api#update-december-11-2022>
+
 ## Support
 
 - [x] 支持上下文语境的对话。

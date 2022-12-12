@@ -9,6 +9,15 @@
 > Get a WeChat robot 🤖 based on ChatGPT in a few step.
 > [中文文档](README_ZH.md) | English
 
+## Notice ❎
+
+403 Failed to refresh auth token: new Cloudflare protections:
+<https://github.com/transitive-bullshit/chatgpt-api/issues/96>
+
+You can try this:
+
+<https://github.com/transitive-bullshit/chatgpt-api#update-december-11-2022>
+
 ## Support
 
 - [x] Support conversation.
