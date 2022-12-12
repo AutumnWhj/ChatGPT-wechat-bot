@@ -1,10 +1,14 @@
 import { ChatGPTAPI } from 'chatgpt';
 import pTimeout from 'p-timeout';
-import config from './config';
-import { retryRequest } from './utils';
+import config from './config.js';
+import { retryRequest } from './utils.js';
 
 const conversationMap = new Map();
-const chatGPT = new ChatGPTAPI({ sessionToken: config.chatGPTSessionToken });
+const chatGPT = new ChatGPTAPI({
+  sessionToken: config.chatGPTSessionToken,
+  clearanceToken: config.clearanceToken,
+  userAgent: config.userAgent,
+});
 
 function resetConversation(contactId: string) {
   if (conversationMap.has(contactId)) {
@@ -17,12 +21,16 @@ function getConversation(contactId: string) {
     return conversationMap.get(contactId);
   }
   const conversation = chatGPT.getConversation();
+
   conversationMap.set(contactId, conversation);
   return conversation;
 }
 
 async function getChatGPTReply(content, contactId) {
   const currentConversation = getConversation(contactId);
+
+  await chatGPT.ensureAuth();
+
   // send a message and wait for the response
   const threeMinutesMs = 3 * 60 * 1000;
   const response = await pTimeout(currentConversation.sendMessage(content), {
@@ -49,7 +57,10 @@ export async function replyMessage(contact, content, contactId) {
       500
     );
 
-    if ((contact.topic && contact?.topic() && config.groupReplyMode) || (!contact.topic && config.privateReplyMode)) {
+    if (
+      (contact.topic && contact?.topic() && config.groupReplyMode) ||
+      (!contact.topic && config.privateReplyMode)
+    ) {
       const result = content + '\n-----------\n' + message;
       await contact.say(result);
       return;

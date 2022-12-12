@@ -1,7 +1,7 @@
 import { WechatyBuilder } from 'wechaty';
 import qrcodeTerminal from 'qrcode-terminal';
-import config from './config';
-import { replyMessage } from './chatgpt';
+import config from './config.js';
+import { replyMessage } from './chatgpt.js';
 
 async function onMessage(msg) {
   const contact = msg.talker();
