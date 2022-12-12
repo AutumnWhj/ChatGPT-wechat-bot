@@ -44,7 +44,7 @@ export async function replyMessage(contact, content, contactId) {
       content.trim().toLocaleLowerCase() === config.resetKey.toLocaleLowerCase()
     ) {
       resetConversation(contactId);
-      await contact.say('Previous conversation has been reset.');
+      await contact.say('对话已重置');
       return;
     }
     const message = await retryRequest(

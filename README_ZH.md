@@ -6,6 +6,8 @@
   </a>
 </p>
 
+
+
 > 几步即可获得一个基于 ChatGPT 的微信机器人 🤖。
 > [English](README.md) | 中文文档
 
@@ -28,6 +30,19 @@ chatGPT 开启了 Cloudflare 保护。现在暂时不能用了。
 - [x] 支持设置重试次数，当请求 ChatGPT 错误时，会自动重试。
 - [ ] 捕获错误并重试。
 - [ ] 其他
+
+
+
+## 注意 ❎
+
+chatGPT 开启了 Cloudflare 保护。现在暂时不能用了。
+<https://github.com/transitive-bullshit/chatgpt-api/issues/96>
+
+小伙伴们可尝试一下这种方法
+
+<https://github.com/transitive-bullshit/chatgpt-api#update-december-11-2022>
+
+
 
 ## 默认配置
 
@@ -54,7 +69,53 @@ chatGPT 开启了 Cloudflare 保护。现在暂时不能用了。
 }
 ```
 
-## 用 Docker 运行
+
+
+
+
+## 部署好的Docker镜像
+
+```
+docker pull telepuryang/botgpt        //拉取远程镜像文件
+```
+
+#### 运行镜像
+
+```
+docker run -dit telepuryang/botgpt bash    //让容器不自动退出
+```
+
+
+
+#### 第一次使用前需要设置token
+
+**进入主目录code/src/下修改config文件，填写token值**
+
+```
+docker exec -it [containersname] bash  //主目录为code，[containersname]填写你的容器名称
+cd src
+编辑src目录下的config文件
+```
+
+
+
+### 正式运行
+
+**设置好后回到主目录下执行：**
+
+```
+npm run dev
+```
+
+
+
+#### 至此你的终端界面中应该出现了微信登录二维码。
+
+![img.png](https://s3.bmp.ovh/imgs/2022/12/12/572e65548d3851f9.png)
+
+
+
+## 用主Dockerfile文件引导Docker 运行
 
 ```
 // build
@@ -66,7 +127,28 @@ docker run --name wechatbot wechatbot:latest
 
 ```
 
-## 开始设置机器人 🤖
+
+
+## 用Dockerfile.2文件引导Docker 运行
+
+```
+// build
+//Dockerfile文件目录下运行
+docker build -t [imagename] . //自定义镜像名
+
+
+// 运行镜像
+docker run -dit [imagename] /bin/bash  
+
+后按之前docker部署方法运行。
+
+```
+
+
+
+
+
+## 非Docker的机器人本地项目设置 🤖
 
 1. 首先，需要按照以下步骤获你的 ChatGPT 的 session token.
 
