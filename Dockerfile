@@ -28,10 +28,11 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 #去除了wget的安装，将wget的安装和chrome的安装都打包成了docker镜像。
 #在没有科学上网的设备上，可能因为网络问题无法下载linux_signing_key.pub文件而进度卡住（如服务器搭建不方便搭梯子）
 
-RUN  apt-get update \
-    && apt-get install -y wget gnupg \
-    && wget -q -O - https://gitlab.com/yyc5/test/-/raw/a7ed9e5920614037a6c35a1076c2197dae8f5b0f/linux_signing_key.pub?inline=false | apt-key add - 
-RUN  apt-get update \ 
+RUN apt-get update \
+  && apt-get install -y wget gnupg \
+  && wget -q -O - https://gitlab.com/yyc5/test/-/raw/a7ed9e5920614037a6c35a1076c2197dae8f5b0f/linux_signing_key.pub?inline=false | apt-key add - \
+  && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+  && apt-get update \
   && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
   --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
