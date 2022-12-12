@@ -21,6 +21,19 @@
 - [ ] 捕获错误并重试。
 - [ ] 其他
 
+
+
+## 注意 ❎
+
+chatGPT 开启了 Cloudflare 保护。现在暂时不能用了。
+<https://github.com/transitive-bullshit/chatgpt-api/issues/96>
+
+小伙伴们可尝试一下这种方法
+
+<https://github.com/transitive-bullshit/chatgpt-api#update-december-11-2022>
+
+
+
 ## 默认配置
 
 ```
@@ -44,7 +57,7 @@
 
 
 
-## 用原dockerfile文件引导Docker 运行
+## 用主Dockerfile文件引导Docker 运行
 
 ```
 // build
@@ -61,183 +74,43 @@ docker run --name wechatbot wechatbot:latest
 ## 部署好的Docker镜像
 
 ```
-docker pull telepuryang/packbot
+docker pull telepuryang/packbot         //拉取远程镜像文件
 ```
 
-#### 运行
-
-**进入镜像目录，再到/code目录下**
-
-进入主目录：
+#### 运行镜像
 
 ```
-docker exec -it [containersID] /bin/bash
-```
-
-如果你找不到code文件夹，请cd回退上一层后再cd到code/文件夹后
-
-执行：
-
-```
-npm run build
-```
-
-后
-
-```
-node lib/bundle.esm.js
+docker run -dit gptbotpack /bin/bash    //让容器不自动退出
 ```
 
 
 
+#### 第一次使用需要设置token
 
-
-## 自己创建镜像，Dockerfile文件的配置
-
-> **注意：**由于原dockerfile文件中，存在获取linux_signing_key.pub文件的步骤。**部分无科学上网环境**的设备可能会在”setting up wget“后一直停滞。需要手动解决。
-
-
-
-#### 查看是否停止在下载状态
-
-单独执行
+**进入镜像主目录code/src/下修改config文件，填写token值**
 
 ```
-wget -O - https://dl-ssl.google.com/linux/linux_signing_key.pub
+docker exec -it [containersID] bash  //主目录
+cd src
 ```
 
-
-
-
-
-
-
-#### 用项目中的dockerfile文件build镜像时，不会一次性正常运行，只能满足创建好镜像的基本操作。
-
-- 镜像系统**默认使用ubuntu**，如果你需要更换，请**修改FROM**，也别忘记**修改**dockerfile文件中的对应的**包管理代码**。
-
-  如：centos用yum，Ubuntu用apt-get等。
-
-
-
-
-
-
-
-#### 用dockerfile文件引导，创建好镜像后，你需要执行以下操作方可确保正常运行：
-
-1. 安装wget软件包
-
-   ```shell
-   apt-get install -y wget
-   ```
-
-2. 下载chrome的linux_signing_key.pub文件
-
-   地址：https://dl-ssl.google.com/linux/linux_signing_key.pub
-
-   
-
-   下载好后在文件所在目录执行：显示ok表示成功
-
-   ```shell
-   cat linux_signing_key.pub |  apt-key add -
-   ```
-
-3. 下载chrome
-
-   ```shell
-   apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
-     --no-install-recommend
-   ```
-
-   
-
-4. 清除不必要文件
-
-   ```shell
-   rm -rf /var/lib/apt/lists/*
-   ```
-
-
-
-
-
-
-
-### 运行
-
-**在docker中进入镜像目录，再到/code目录下**
-
-进入主目录：
+**设置好后主目录下执行：**
 
 ```
-docker exec -it [containersID] /bin/bash
-```
-
-如果你找不到code文件夹，请cd回退上一层后再cd到code/文件夹后
-
-执行：
-
-```
-npm run build
-```
-
-后
-
-```
-node lib/bundle.esm.js
+npm run dev
 ```
 
 
 
 #### 至此你的终端界面中应该出现了微信登录二维码。
 
-![image-20221212001540039](/Users/yangyichen/Library/Application Support/typora-user-images/image-20221212001540039.png)
-
-
-
-#### token的添加请往下。
-
-
-
-在docker中，你只需要添加好token以后再重复：
-
-执行：
-
-```
-npm run build
-```
-
-后
-
-```
-node lib/bundle.esm.js
-```
-
-即可。
-
-
-
-#### 你可能需要vim编辑器来帮助你编辑文本,
-
-```
-apt-get install vim
-```
-
-
-
-进入容器主目录的src下文件夹可对config文件进行配置修改。填写token
-
-> 注意：vim打开可能会出现中文乱码情况。
+![img.png](https://s3.bmp.ovh/imgs/2022/12/12/572e65548d3851f9.png)
 
 
 
 
 
-
-
-## 开始设置机器人 🤖
+## 非Docker的机器人本地项目设置 🤖
 
 1. 首先，需要按照以下步骤获你的 ChatGPT 的 session token.
 
