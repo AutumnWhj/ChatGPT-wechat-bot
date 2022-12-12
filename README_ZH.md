@@ -7,6 +7,7 @@
 </p>
 
 
+
 > 几步即可获得一个基于 ChatGPT 的微信机器人 🤖。
 > [English](README.md) | 中文文档
 
@@ -57,6 +58,50 @@ chatGPT 开启了 Cloudflare 保护。现在暂时不能用了。
 
 
 
+
+
+## 部署好的Docker镜像
+
+```
+docker pull telepuryang/botgpt        //拉取远程镜像文件
+```
+
+#### 运行镜像
+
+```
+docker run -dit telepuryang/botgpt bash    //让容器不自动退出
+```
+
+
+
+#### 第一次使用前需要设置token
+
+**进入主目录code/src/下修改config文件，填写token值**
+
+```
+docker exec -it [containersname] bash  //主目录为code，[containersname]填写你的容器名称
+cd src
+编辑src目录下的config文件
+```
+
+
+
+### 正式运行
+
+**设置好后回到主目录下执行：**
+
+```
+npm run dev
+```
+
+
+
+#### 至此你的终端界面中应该出现了微信登录二维码。
+
+![img.png](https://s3.bmp.ovh/imgs/2022/12/12/572e65548d3851f9.png)
+
+
+
 ## 用主Dockerfile文件引导Docker 运行
 
 ```
@@ -71,40 +116,20 @@ docker run --name wechatbot wechatbot:latest
 
 
 
-## 部署好的Docker镜像
+## 用Dockerfile.2文件引导Docker 运行
 
 ```
-docker pull telepuryang/packbot         //拉取远程镜像文件
-```
-
-#### 运行镜像
-
-```
-docker run -dit gptbotpack /bin/bash    //让容器不自动退出
-```
+// build
+//Dockerfile文件目录下运行
+docker build -t [imagename] . //自定义镜像名
 
 
+// 运行镜像
+docker run -dit [imagename] /bin/bash  
 
-#### 第一次使用需要设置token
-
-**进入镜像主目录code/src/下修改config文件，填写token值**
+后按之前docker部署方法运行。
 
 ```
-docker exec -it [containersID] bash  //主目录
-cd src
-```
-
-**设置好后主目录下执行：**
-
-```
-npm run dev
-```
-
-
-
-#### 至此你的终端界面中应该出现了微信登录二维码。
-
-![img.png](https://s3.bmp.ovh/imgs/2022/12/12/572e65548d3851f9.png)
 
 
 
