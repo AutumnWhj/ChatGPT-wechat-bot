@@ -7,6 +7,7 @@
   "type": "module",
   "scripts": {
     "dev": "node --loader ts-node/esm --inspect ./src/index.ts",
+    "test": "node --loader ts-node/esm --inspect ./src/auth.ts",
     "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{ts,tsx}\" --fix",
     "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,md}\"",
     "lint:lint-staged": "lint-staged",

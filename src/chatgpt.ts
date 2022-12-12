@@ -2,13 +2,32 @@ import { ChatGPTAPI } from 'chatgpt';
 import pTimeout from 'p-timeout';
 import config from './config.js';
 import { retryRequest } from './utils.js';
+import { getCookies } from './auth.js';
+
+let chatGPTConfig = config;
 
 const conversationMap = new Map();
-const chatGPT = new ChatGPTAPI({
-  sessionToken: config.chatGPTSessionToken,
-  clearanceToken: config.clearanceToken,
-  // userAgent: config.userAgent,
-});
+let chatGPT: any = {};
+export async function initChatGPT() {
+  const cookies: any = await getCookies();
+  console.log('cookies------: ', Array.isArray(cookies));
+  const { value: clearanceToken } =
+    cookies.find(({ name }) => name === 'cf_clearance') || {};
+  const { value: sessionToken } =
+    cookies.find(({ name }) => name === '__Secure-next-auth.session-token') ||
+    {};
+  chatGPTConfig = {
+    ...chatGPTConfig,
+    sessionToken,
+    clearanceToken,
+  };
+  console.log('chatGPTConfig', chatGPTConfig);
+  chatGPT = new ChatGPTAPI({
+    sessionToken: chatGPTConfig.sessionToken,
+    clearanceToken: chatGPTConfig.clearanceToken,
+    userAgent: chatGPTConfig.userAgent,
+  });
+}
 
 function resetConversation(contactId: string) {
   if (conversationMap.has(contactId)) {

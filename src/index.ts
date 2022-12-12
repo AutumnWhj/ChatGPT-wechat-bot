@@ -1,8 +1,10 @@
 import { WechatyBuilder } from 'wechaty';
 import qrcodeTerminal from 'qrcode-terminal';
 import config from './config.js';
-import { replyMessage } from './chatgpt.js';
+import { replyMessage, initChatGPT } from './chatgpt.js';
 
+let bot: any = {};
+initProjest();
 async function onMessage(msg) {
   const contact = msg.talker();
   const contactId = contact.id;
@@ -82,24 +84,31 @@ async function onFriendShip(friendship) {
   }
 }
 
-const bot = WechatyBuilder.build({
-  name: 'WechatEveryDay',
-  puppet: 'wechaty-puppet-wechat', // 如果有token，记得更换对应的puppet
-  puppetOptions: {
-    uos: true,
-  },
-});
+async function initProjest() {
+  try {
+    await initChatGPT();
+    bot = WechatyBuilder.build({
+      name: 'WechatEveryDay',
+      puppet: 'wechaty-puppet-wechat', // 如果有token，记得更换对应的puppet
+      puppetOptions: {
+        uos: true,
+      },
+    });
 
-bot
-  .on('scan', onScan)
-  .on('login', onLogin)
-  .on('logout', onLogout)
-  .on('message', onMessage);
-if (config.friendShipRule) {
-  bot.on('friendship', onFriendShip);
+    bot
+      .on('scan', onScan)
+      .on('login', onLogin)
+      .on('logout', onLogout)
+      .on('message', onMessage);
+    if (config.friendShipRule) {
+      bot.on('friendship', onFriendShip);
+    }
+
+    bot
+      .start()
+      .then(() => console.log('Start to log in wechat...'))
+      .catch((e) => console.error(e));
+  } catch (error) {
+    console.log('init error: ', error);
+  }
 }
-
-bot
-  .start()
-  .then(() => console.log('Start to log in wechat...'))
-  .catch((e) => console.error(e));
