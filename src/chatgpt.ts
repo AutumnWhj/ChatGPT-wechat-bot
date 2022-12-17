@@ -1,32 +1,24 @@
-import { ChatGPTAPI } from 'chatgpt';
+import { ChatGPTAPI, getOpenAIAuth } from 'chatgpt';
 import pTimeout from 'p-timeout';
 import config from './config.js';
 import { retryRequest } from './utils.js';
-import { getCookies } from './auth.js';
 
-let chatGPTConfig = config;
+const chatGPTConfig = config;
 
 const conversationMap = new Map();
 let chatGPT: any = {};
 export async function initChatGPT() {
-  const cookies: any = await getCookies();
-  console.log('cookies------: ', Array.isArray(cookies));
-  const { value: clearanceToken } =
-    cookies.find(({ name }) => name === 'cf_clearance') || {};
-  const { value: sessionToken } =
-    cookies.find(({ name }) => name === '__Secure-next-auth.session-token') ||
-    {};
-  chatGPTConfig = {
-    ...chatGPTConfig,
-    sessionToken,
-    clearanceToken,
-  };
-  console.log('chatGPTConfig', chatGPTConfig);
-  chatGPT = new ChatGPTAPI({
-    sessionToken: chatGPTConfig.sessionToken,
-    clearanceToken: chatGPTConfig.clearanceToken,
-    userAgent: chatGPTConfig.userAgent,
+  // use puppeteer to bypass cloudflare (headful because of captchas)
+  const openAIAuth = await getOpenAIAuth({
+    email: '',
+    password: '',
   });
+
+  console.log('openAIAuth: ', openAIAuth);
+  chatGPT = new ChatGPTAPI({
+    ...openAIAuth,
+  });
+  await chatGPT.initSession();
 }
 
 function resetConversation(contactId: string) {
