@@ -7,7 +7,6 @@ let bot: any = {};
 initProjest();
 async function onMessage(msg) {
   const contact = msg.talker();
-  const contactId = contact.id;
   const receiver = msg.to();
   const content = msg.text().trim();
   const room = msg.room();
@@ -27,7 +26,7 @@ async function onMessage(msg) {
     if (await msg.mentionSelf()) {
       if (pattern.test(content)) {
         const groupContent = content.replace(pattern, '');
-        replyMessage(room, groupContent, contactId);
+        replyMessage(room, groupContent);
         return;
       } else {
         console.log(
@@ -41,8 +40,7 @@ async function onMessage(msg) {
       if (content.startsWith(config.privateKey)) {
         replyMessage(
           contact,
-          content.substring(config.privateKey.length).trim(),
-          contactId
+          content.substring(config.privateKey.length).trim()
         );
       } else {
         console.log(

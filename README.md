@@ -24,8 +24,8 @@
 
 ```
 {
-  // Fill up with session token
-  chatGPTSessionToken: '',
+  // Fill up with OPENAI_API_KEY
+  OPENAI_API_KEY: '',
   // Setting the number of retries when API error occurs
   retryTimes: 3,
   // Setting keyword to wake up in group chat
@@ -45,32 +45,14 @@
 }
 ```
 
-## Use with docker
-
-```
-// build
-docker build --pull --rm -f "Dockerfile" -t wechatbot:latest "."
-
-// run, and then you will see some logs
-docker run --name wechatbot wechatbot:latest
-
-```
-
 ## How to start?
 
 1. Firstly, you should have an OpenAI account, then follow the steps below to get your token.
 
-   Refer to this article: [`transitive-bullshit/chatgpt-api`](https://github.com/transitive-bullshit/chatgpt-api).
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/2777249/1675413138418-d5df2543-bd37-41cc-a16c-505c5a38e88d.png)
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/2777249/1675413190188-4cf10947-ea7f-479d-9550-0dec9d40c0e2.png?x-oss-process=image%2Fresize%2Cw_1500%2Climit_0)
 
-> To get a session token:
->
-> - Go to [`chat.openai.com/chat`](https://chat.openai.com/chat) and log in or sign up.
-> - Open dev tools.
-> - Open Application > Cookies.
->   ![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670287051371-acd694da-cd3f-46c4-97c4-96438965f8a4.png#averageHue=%232d3136&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=497&id=u77b3570c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=994&originWidth=1586&originalType=binary&ratio=1&rotation=0&showTitle=false&size=796464&status=done&style=none&taskId=uf4e7e669-4feb-431a-80b7-f7ab47c9113&title=&width=793)
-> - Copy the value for \_\_Secure-next-auth.session-token and save it to your environment.
-
-2. Now, you should **fill your Token value into the `ChatGPTSessionToken` in the directory `src/config.js`**， then run this project on local.
+2. Now, you should **fill your Token value into the `OPENAI_API_KEY` in the directory `src/config.js`**， then run this project on local.
 
    _If necessary, configure other customization variables in `src/config.js`._
 

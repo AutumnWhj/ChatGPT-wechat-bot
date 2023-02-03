@@ -17,15 +17,15 @@
 - [x] 支持通过关键词唤醒你的机器人，如当在群组中发送“@机器人 hello xxxx”时才会收到回复。
 - [x] 支持 Docker 运行。
 - [x] 支持设置重试次数，当请求 ChatGPT 错误时，会自动重试。
-- [ ] 捕获错误并重试。
+- [x] 捕获错误并重试。
 - [ ] 其他
 
 ## 默认配置
 
 ```
 {
-  // 填入你的session token
-  chatGPTSessionToken: '',
+  // 填入你的OPENAI_API_KEY
+  OPENAI_API_KEY: '',
   // 设置获取消息的重试次数
   retryTimes: 3,
   // 在群组中设置唤醒微信机器人的关键词
@@ -45,45 +45,23 @@
 }
 ```
 
-## 用 Docker 运行
-
-```
-// build
-docker build --pull --rm -f "Dockerfile" -t wechatbot:latest "."
-
-
-// run, and then you will see some logs
-docker run --name wechatbot wechatbot:latest
-
-```
-
 ## 开始设置机器人 🤖
 
-1. 首先，需要按照以下步骤获你的 ChatGPT 的 session token.
+1. 首先，需要按照以下步骤获你的 ChatGPT 的 OPENAI_API_KEY.
 
-> 获取你的 session token:
+> 获取你的 OPENAI_API_KEY:
 >
-> - 打开 [https://chat.openai.com/chat](https://chat.openai.com/chat) 并登录注册，进入网页。
-> - 打开浏览器的 dev tools（按 F12）.
-> - 从顶栏中选择 Application > Cookies.
->   ![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670287051371-acd694da-cd3f-46c4-97c4-96438965f8a4.png#averageHue=%232d3136&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=497&id=u77b3570c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=994&originWidth=1586&originalType=binary&ratio=1&rotation=0&showTitle=false&size=796464&status=done&style=none&taskId=uf4e7e669-4feb-431a-80b7-f7ab47c9113&title=&width=793)
-> - `__Secure-next-auth.session-token`就是你的 session token 啦。
+> - 打开 [https://platform.openai.com/overview](https://platform.openai.com/overview) 并登录注册，进入网页。
 
-2. 把 session token 填入目录`src/config.js`下的 `ChatGPTSessionToken` 中，然后在终端运行以下命令。如有需要，请在`src/config.js`中配置其它配置变量。
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/2777249/1675413138418-d5df2543-bd37-41cc-a16c-505c5a38e88d.png)
+![image.png](https://cdn.nlark.com/yuque/0/2023/png/2777249/1675413190188-4cf10947-ea7f-479d-9550-0dec9d40c0e2.png?x-oss-process=image%2Fresize%2Cw_1500%2Climit_0)
+
+2. 把 OPENAI_API_KEY 填入目录`src/config.js`下的 `OPENAI_API_KEY` 中，然后在终端运行以下命令。如有需要，请在`src/config.js`中配置其它配置变量。
 
 ```javascript
   // install dependencies
   npm i
-
-  // 第一种方式:
-  // dev
   npm run dev
-
-  //第二种方式
-  // build
-  npm run build
-  // run lib
-  node lib/bundle.esm.js
 ```
 
 3. 执行完之后，可以看到终端控制台输出一下信息，扫码登录即可.

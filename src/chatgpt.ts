@@ -1,69 +1,40 @@
-import { ChatGPTAPI, getOpenAIAuth } from 'chatgpt';
-import pTimeout from 'p-timeout';
+import { ChatGPTAPI } from 'chatgpt';
 import config from './config.js';
 import { retryRequest } from './utils.js';
 
-const chatGPTConfig = config;
-
-const conversationMap = new Map();
 let chatGPT: any = {};
-export async function initChatGPT() {
-  // use puppeteer to bypass cloudflare (headful because of captchas)
-  const openAIAuth = await getOpenAIAuth({
-    email: '',
-    password: '',
-  });
-
-  console.log('openAIAuth: ', openAIAuth);
+let chatOption = {};
+export function initChatGPT() {
   chatGPT = new ChatGPTAPI({
-    ...openAIAuth,
+    apiKey: config.OPENAI_API_KEY,
   });
-  await chatGPT.initSession();
 }
 
-function resetConversation(contactId: string) {
-  if (conversationMap.has(contactId)) {
-    conversationMap.delete(contactId);
-  }
-}
-
-function getConversation(contactId: string) {
-  if (conversationMap.has(contactId)) {
-    return conversationMap.get(contactId);
-  }
-  const conversation = chatGPT.getConversation();
-
-  conversationMap.set(contactId, conversation);
-  return conversation;
-}
-
-async function getChatGPTReply(content, contactId) {
-  const currentConversation = getConversation(contactId);
-
-  await chatGPT.ensureAuth();
-
-  // send a message and wait for the response
-  const threeMinutesMs = 3 * 60 * 1000;
-  const response = await pTimeout(currentConversation.sendMessage(content), {
-    milliseconds: threeMinutesMs,
-    message: 'ChatGPT timed out waiting for response',
-  });
-  console.log('response: ', response);
+async function getChatGPTReply(content) {
+  const { conversationId, text, id } = await chatGPT.sendMessage(
+    content,
+    chatOption
+  );
+  chatOption = {
+    conversationId,
+    parentMessageId: id,
+  };
+  console.log('response: ', conversationId, text);
   // response is a markdown-formatted string
-  return response;
+  return text;
 }
 
-export async function replyMessage(contact, content, contactId) {
+export async function replyMessage(contact, content) {
   try {
     if (
       content.trim().toLocaleLowerCase() === config.resetKey.toLocaleLowerCase()
     ) {
-      resetConversation(contactId);
+      chatOption = {};
       await contact.say('Previous conversation has been reset.');
       return;
     }
     const message = await retryRequest(
-      () => getChatGPTReply(content, contactId),
+      () => getChatGPTReply(content),
       config.retryTimes,
       500
     );
@@ -86,6 +57,5 @@ export async function replyMessage(contact, content, contactId) {
           '\n-----------\nERROR: Please try again, ChatGPT timed out for waiting response.'
       );
     }
-    conversationMap.delete(contactId);
   }
 }

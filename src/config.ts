@@ -1,9 +1,6 @@
 export default {
   // 填入你的session token
-  sessionToken: '',
-  clearanceToken: '',
-  userAgent:
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36',
+  OPENAI_API_KEY: '',
   // 设置获取消息的重试次数
   retryTimes: 3,
   // 在群组中设置唤醒微信机器人的关键词
