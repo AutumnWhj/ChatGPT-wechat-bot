@@ -9,6 +9,10 @@
 > Get a WeChat robot 🤖 based on ChatGPT in a few step.
 > [中文文档](README_ZH.md) | English
 
+## Update February 3, 2023
+
+🔥This package no longer requires any browser hacks – it is now using the official OpenAI completions API with a leaked model🔥
+
 ## Support
 
 - [x] Support conversation.
@@ -17,7 +21,7 @@
 - [x] Set the keywords to wake up the WeChat robot in the group.
 - [x] Support Dockerfile to deploy.
 - [x] Support set retry times when request ChatGPT.
-- [ ] Catch conversation error and retry.
+- [x] Catch conversation error and retry.
 - [ ] Other
 
 ## Default config
@@ -63,12 +67,6 @@ npm i
 // start:
 // dev
 npm run dev
-
-//or
-// build
-npm run build
-// run lib
-node lib/bundle.esm.js
 ```
 
 3. you can see your logs, and scan qrcode to log in wechat.
