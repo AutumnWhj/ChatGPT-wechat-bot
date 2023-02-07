@@ -7,8 +7,8 @@ let bot: any = {};
 let startTime = new Date();
 initProjest();
 async function onMessage(msg) {
+  // 避免重复发送
   if (msg.date() < startTime) {
-    console.log("排除已经发送的消息");
     return;
   }
   const contact = msg.talker();
