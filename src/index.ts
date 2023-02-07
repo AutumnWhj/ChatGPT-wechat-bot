@@ -4,6 +4,7 @@ import config from './config.js';
 import { replyMessage, initChatGPT } from './chatgpt.js';
 
 let bot: any = {};
+let startTime = new Date();
 initProjest();
 async function onMessage(msg) {
   const contact = msg.talker();
@@ -13,6 +14,10 @@ async function onMessage(msg) {
   const alias = (await contact.alias()) || (await contact.name());
   const isText = msg.type() === bot.Message.Type.Text;
   if (msg.self()) {
+    return;
+  }
+  if (msg.date() < startTime) {
+    console.log("排除已经发送的消息");
     return;
   }
 
