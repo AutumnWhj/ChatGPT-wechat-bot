@@ -5,7 +5,7 @@ import { replyMessage, initChatGPT } from './chatgpt.js';
 
 let bot: any = {};
 let startTime = new Date();
-initProjest();
+initProject();
 async function onMessage(msg) {
   // 避免重复发送
   if (msg.date() < startTime) {
@@ -91,7 +91,7 @@ async function onFriendShip(friendship) {
   }
 }
 
-async function initProjest() {
+async function initProject() {
   try {
     await initChatGPT();
     bot = WechatyBuilder.build({
