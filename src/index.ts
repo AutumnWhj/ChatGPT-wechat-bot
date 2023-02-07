@@ -4,8 +4,13 @@ import config from './config.js';
 import { replyMessage, initChatGPT } from './chatgpt.js';
 
 let bot: any = {};
+let startTime = new Date();
 initProject();
 async function onMessage(msg) {
+  // 避免重复发送
+  if (msg.date() < startTime) {
+    return;
+  }
   const contact = msg.talker();
   const receiver = msg.to();
   const content = msg.text().trim();
@@ -37,10 +42,14 @@ async function onMessage(msg) {
   } else if (isText) {
     console.log(`talker: ${alias} content: ${content}`);
     if (config.autoReply) {
-      if (content.startsWith(config.privateKey)) {
+      if (content.startsWith(config.privateKey) || config.privateKey === '') {
+        let privateContent = content
+        if (config.privateKey === '') {
+          privateContent = content.substring(config.privateKey.length).trim()
+        }
         replyMessage(
           contact,
-          content.substring(config.privateKey.length).trim()
+          privateContent
         );
       } else {
         console.log(
