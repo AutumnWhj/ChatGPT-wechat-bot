@@ -10,14 +10,16 @@ export function initChatGPT() {
   });
 }
 
-async function getChatGPTReply(content) {
+async function getChatGPTReply(content, contactId) {
   const { conversationId, text, id } = await chatGPT.sendMessage(
     content,
-    chatOption
+    chatOption[contactId]
   );
   chatOption = {
-    conversationId,
-    parentMessageId: id,
+    [contactId]: {
+      conversationId,
+      parentMessageId: id,
+    },
   };
   console.log('response: ', conversationId, text);
   // response is a markdown-formatted string
@@ -25,16 +27,20 @@ async function getChatGPTReply(content) {
 }
 
 export async function replyMessage(contact, content) {
+  const { id: contactId } = contact;
   try {
     if (
       content.trim().toLocaleLowerCase() === config.resetKey.toLocaleLowerCase()
     ) {
-      chatOption = {};
+      chatOption = {
+        ...chatOption,
+        [contactId]: {},
+      };
       await contact.say('Previous conversation has been reset.');
       return;
     }
     const message = await retryRequest(
-      () => getChatGPTReply(content),
+      () => getChatGPTReply(content, contactId),
       config.retryTimes,
       500
     );

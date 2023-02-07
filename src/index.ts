@@ -4,7 +4,7 @@ import config from './config.js';
 import { replyMessage, initChatGPT } from './chatgpt.js';
 
 let bot: any = {};
-initProjest();
+initProject();
 async function onMessage(msg) {
   const contact = msg.talker();
   const receiver = msg.to();
@@ -82,7 +82,7 @@ async function onFriendShip(friendship) {
   }
 }
 
-async function initProjest() {
+async function initProject() {
   try {
     await initChatGPT();
     bot = WechatyBuilder.build({
