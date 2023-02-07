@@ -4,6 +4,8 @@ import config from './config.js';
 import { replyMessage, initChatGPT } from './chatgpt.js';
 
 let bot: any = {};
+const startTime: Date = new Date();
+
 initProject();
 async function onMessage(msg) {
   const contact = msg.talker();
@@ -13,6 +15,11 @@ async function onMessage(msg) {
   const alias = (await contact.alias()) || (await contact.name());
   const isText = msg.type() === bot.Message.Type.Text;
   if (msg.self()) {
+    return;
+  }
+
+  if (msg.date() < startTime) {
+    console.log(`${content} this content has been filtered`);
     return;
   }
 
