@@ -1,5 +1,5 @@
 export default {
-  // 填入你的session token
+  // 填入你的OPENAI_API_KEY
   OPENAI_API_KEY: '',
   // 设置获取消息的重试次数
   retryTimes: 3,

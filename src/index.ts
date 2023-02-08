@@ -4,7 +4,7 @@ import config from './config.js';
 import { replyMessage, initChatGPT } from './chatgpt.js';
 
 let bot: any = {};
-let startTime = new Date();
+const startTime = new Date();
 initProject();
 async function onMessage(msg) {
   // 避免重复发送
@@ -43,14 +43,11 @@ async function onMessage(msg) {
     console.log(`talker: ${alias} content: ${content}`);
     if (config.autoReply) {
       if (content.startsWith(config.privateKey) || config.privateKey === '') {
-        let privateContent = content
+        let privateContent = content;
         if (config.privateKey === '') {
-          privateContent = content.substring(config.privateKey.length).trim()
+          privateContent = content.substring(config.privateKey.length).trim();
         }
-        replyMessage(
-          contact,
-          privateContent
-        );
+        replyMessage(contact, privateContent);
       } else {
         console.log(
           'Content is not within the scope of the customizition format'
