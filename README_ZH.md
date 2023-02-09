@@ -11,13 +11,13 @@
 
 ## Support
 
-- [x] 支持上下文语境的对话。
-- [x] 支持重置上下文语境，通过关键词(reset)重置对话上下文语境。
-- [x] 支持在群聊@你的机器人 🤖，@机器人即可收到回复。
-- [x] 支持通过关键词唤醒你的机器人，如当在群组中发送“@机器人 hello xxxx”时才会收到回复。
-- [x] 支持 Docker 运行。
-- [x] 支持设置重试次数，当请求 ChatGPT 错误时，会自动重试。
-- [x] 捕获错误并重试。
+- [X] 支持上下文语境的对话。
+- [X] 支持重置上下文语境，通过关键词(reset)重置对话上下文语境。
+- [X] 支持在群聊@你的机器人 🤖，@机器人即可收到回复。
+- [X] 支持通过关键词唤醒你的机器人，如当在群组中发送“@机器人 hello xxxx”时才会收到回复。
+- [X] 支持 Docker 运行。
+- [X] 支持设置重试次数，当请求 ChatGPT 错误时，会自动重试。
+- [X] 捕获错误并重试。
 - [ ] 其他
 
 ## Update February 3, 2023
@@ -60,7 +60,7 @@
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/2777249/1675413138418-d5df2543-bd37-41cc-a16c-505c5a38e88d.png)
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/2777249/1675413190188-4cf10947-ea7f-479d-9550-0dec9d40c0e2.png?x-oss-process=image%2Fresize%2Cw_1500%2Climit_0)
 
-2. 把 OPENAI_API_KEY 填入目录`src/config.js`下的 `OPENAI_API_KEY` 中，然后在终端运行以下命令。如有需要，请在`src/config.js`中配置其它配置变量。
+2. 把 OPENAI_API_KEY 填入目录 `src/config.js`下的 `OPENAI_API_KEY` 中，然后在终端运行以下命令。如有需要，请在 `src/config.js`中配置其它配置变量。
 
 ```javascript
   // install dependencies
@@ -70,23 +70,47 @@
 
 3. 执行完之后，可以看到终端控制台输出一下信息，扫码登录即可.
    ![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670287138908-cc898c58-6e0a-488f-ae07-ae489508c1be.png#averageHue=%23484948&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=442&id=ub5fee6b7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1200&originWidth=1660&originalType=binary&ratio=1&rotation=0&showTitle=false&size=492370&status=done&style=none&taskId=u233d9139-1ef5-42bf-9f44-354c6565862&title=&width=612)
-
 4. 登录成功，用另外一个微信往你扫码登录的微信发消息，你将会收到来自 ChatGPT 的回复。
    ![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670288278607-73beed83-1a42-42db-8404-72ba60bf2c53.png#averageHue=%234d4e4d&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=437&id=uff52651b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=874&originWidth=1398&originalType=binary&ratio=1&rotation=0&showTitle=false&size=543479&status=done&style=none&taskId=ub5559ec7-30f8-4c07-a9f8-1445a659835&title=&width=699)![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670288469581-470c7f45-b3db-4a7e-ab01-32b44b812668.png#averageHue=%23f2f2f2&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=230&id=u97e5b1e5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=460&originWidth=1266&originalType=binary&ratio=1&rotation=0&showTitle=false&size=112172&status=done&style=none&taskId=u7d7970df-3044-4534-910c-fdb7b3d2a5b&title=&width=633)
+
+## 使用docker运行
+
+#### 构建镜像
+
+```bash
+docker build -f Dockerfile.x86_64 -t chat-bot:latest .
+```
+
+#### 运行容器
+
+```
+docker run -it -v $PWD/src/config.ts:/code/src/config.ts --name chat-bot chat-bot:latest
+
+```
+
+#### 查看二维码
+
+```bash
+docker logs -f chat-bot
+```
+
+#### 直接运行构建好的镜像
+
+```bash
+docker run --rm  -dit -v $PWD/src/config.ts:/code/src/config.ts --name chat-bot spartan65/chat-bot:dev
+```
 
 ## QA
 
 1. If your WeChat cannot log in
    Please check the root directory of your project, whether there is a file —— `WechatEveryDay.memory-card`, if so, please delete it and try it again.
-
 2. 支持的 node 版本: Node.js >= 16.8
-
 3. 因为 ChatGPT 的长度限制，如果回复消息不完整，可以对它说"请继续" 或者 "请继续写完"。
 
 <img width="621" alt="image" src="https://user-images.githubusercontent.com/39156049/206840335-a64ee27c-df4f-4e70-8604-669fc9468910.png">
 
 4. Error: Failed to launch the browser process puppeteer
-   refer to <https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix>
+   refer to [https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix)
 
 ```
 // ubuntu

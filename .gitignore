@@ -3,3 +3,4 @@
 .env
 *.memory-card.json
 lib
+/.vscode
