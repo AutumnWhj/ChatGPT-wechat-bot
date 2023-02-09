@@ -9,6 +9,11 @@
 > Get a WeChat robot 🤖 based on ChatGPT in a few step.
 > [中文文档](README_ZH.md) | English
 
+## ⚠️ Update February 9, 2023 
+
+多个用户开始反馈微信暂时封禁, 理由是「使用第三方软件, 外挂, 插件等非官方工具或其他违规行为」，原因不明，请各位朋友谨慎使用。
+集中讨论：https://github.com/AutumnWhj/ChatGPT-wechat-bot/issues/158
+
 ## Update February 3, 2023
 
 🔥This package no longer requires any browser hacks – it is now using the official OpenAI completions API with a leaked model🔥
