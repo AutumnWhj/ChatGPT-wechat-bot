@@ -77,6 +77,32 @@ npm run dev
 
    ![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670288278607-73beed83-1a42-42db-8404-72ba60bf2c53.png#averageHue=%234d4e4d&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=437&id=uff52651b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=874&originWidth=1398&originalType=binary&ratio=1&rotation=0&showTitle=false&size=543479&status=done&style=none&taskId=ub5559ec7-30f8-4c07-a9f8-1445a659835&title=&width=699)![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670288469581-470c7f45-b3db-4a7e-ab01-32b44b812668.png#averageHue=%23f2f2f2&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=230&id=u97e5b1e5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=460&originWidth=1266&originalType=binary&ratio=1&rotation=0&showTitle=false&size=112172&status=done&style=none&taskId=u7d7970df-3044-4534-910c-fdb7b3d2a5b&title=&width=633)
 
+## use docker
+
+1. build docker image
+
+```bash
+docker build -f Dockerfile.x86_64 -t chat-bot:latest .
+```
+
+2. run docker image
+
+```bash
+docker run -it  --name chat-bot chat-bot:latest
+```
+
+3. get wechat qrcode.
+```
+docker logs -f chat-bot
+```
+
+#### use docker hub image
+```
+docker run --rm  -dit -v $PWD/src/config.ts:/code/src/config.ts --name chat-bot spartan65/chat-bot:dev
+```
+
+
+
 ## QA
 
 1. If your WeChat cannot log in
