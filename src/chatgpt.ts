@@ -7,9 +7,9 @@ let chatOption = {};
 export function initChatGPT() {
   chatGPT = new ChatGPTAPI({
     apiKey: config.OPENAI_API_KEY,
-    completionParams: {
-      model: 'text-chat-davinci-002-sh-alpha-aoruigiofdj83',
-    },
+    // completionParams: {
+    //   model: 'text-chat-davinci-002-sh-alpha-aoruigiofdj83',
+    // },
   });
 }
 
