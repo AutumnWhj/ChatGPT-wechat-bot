@@ -1,3 +1,4 @@
+import 'isomorphic-fetch';
 import { WechatyBuilder } from 'wechaty';
 import qrcodeTerminal from 'qrcode-terminal';
 import config from './config.js';
