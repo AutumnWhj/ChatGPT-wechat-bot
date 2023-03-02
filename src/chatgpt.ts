@@ -1,4 +1,5 @@
 import { ChatGPTAPI } from 'chatgpt';
+import midjourney from 'midjourney-client';
 import config from './config.js';
 import { retryRequest } from './utils.js';
 
@@ -42,11 +43,22 @@ export async function replyMessage(contact, content) {
       await contact.say('Previous conversation has been reset.');
       return;
     }
-    const message = await retryRequest(
-      () => getChatGPTReply(content, contactId),
-      config.retryTimes,
-      500
-    );
+    let message = "";
+
+    // console.log(config.privateKey, content.substring(config.privateKey.length).trim(), content);
+
+    if (/^imagine/.test(content)) {
+      let draw_content = '' + content.substring("imagine".length).trim();
+      const result_draw = await midjourney(draw_content, { timeout: 2000 });
+      message = result_draw[0]
+      console.log(draw_content, message);
+    } else {
+      message = await retryRequest(
+        () => getChatGPTReply(content, contactId),
+        config.retryTimes,
+        500
+      );
+    }
 
     if (
       (contact.topic && contact?.topic() && config.groupReplyMode) ||
@@ -63,7 +75,7 @@ export async function replyMessage(contact, content) {
     if (e.message.includes('timed out')) {
       await contact.say(
         content +
-          '\n-----------\nERROR: Please try again, ChatGPT timed out for waiting response.'
+        '\n-----------\nERROR: Please try again, ChatGPT timed out for waiting response.'
       );
     }
   }

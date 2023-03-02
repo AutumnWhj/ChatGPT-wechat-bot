@@ -44,7 +44,7 @@ async function onMessage(msg) {
     if (config.autoReply) {
       if (content.startsWith(config.privateKey) || config.privateKey === '') {
         let privateContent = content;
-        if (config.privateKey === '') {
+        if (config.privateKey !== '') {
           privateContent = content.substring(config.privateKey.length).trim();
         }
         replyMessage(contact, privateContent);
