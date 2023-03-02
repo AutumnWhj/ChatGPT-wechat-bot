@@ -13,11 +13,17 @@
 ## ⚠️ Update March 2, 2023
 
 工作原因，暂不维护了，官方推荐项目，有条件的朋友自己集成：
+
 https://github.com/transitive-bullshit/chatgpt-api
+
 https://github.com/PawanOsman/ChatGPT-Official
+
 https://github.com/acheong08/ChatGPT
+
 https://github.com/waylaidwanderer/node-chatgpt-api
+
 https://github.com/acheong08/EdgeGPT
+
 百花齐放了属于是🐶
 OpenAI也开始卖model了
 > the default model is gpt-3.5-turbo which is paid ($0.002/1K Tokens or $1/500K Tokens) 
