@@ -25,6 +25,7 @@
   "dependencies": {
     "@types/node": "^18.11.11",
     "chatgpt": "^4.2.0",
+    "isomorphic-fetch": "^3.0.0",
     "p-timeout": "^6.0.0",
     "qrcode-terminal": "^0.12.0",
     "ts-node": "^10.9.1",
