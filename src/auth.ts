@@ -3,7 +3,7 @@ import puppeteer from 'puppeteer-extra';
 import stealth from 'puppeteer-extra-plugin-stealth';
 puppeteer.use(stealth());
 
-const sleep = (duration) =>
+const sleep = (duration: number) =>
   new Promise((resolve) => setTimeout(resolve, duration));
 
 export async function getCookies() {
@@ -19,7 +19,7 @@ export async function getCookies() {
     await page.setUserAgent(
       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'
     );
-    console.log(11111111);
+    console.log('Create page success');
     await page.goto('https://chat.openai.com');
     await page.waitForSelector('#__next .btn-primary');
     // wait for networkidle
@@ -30,7 +30,7 @@ export async function getCookies() {
       waitUntil: 'networkidle0',
     });
 
-    console.log(2222);
+    console.log('Open openai page success');
     await page.type('#username', '');
     await sleep(1 * 1000);
     await page.click('button[type="submit"]');
@@ -39,7 +39,7 @@ export async function getCookies() {
 
     await page.type('#password', '');
     await page.click('button[type="submit"]');
-    console.log(333);
+    console.log('Submit success');
     // await sleep(1 * 1000);
     await page.waitForNavigation({
       waitUntil: 'networkidle0',
