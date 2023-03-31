@@ -51,7 +51,9 @@
 
 2. 把 OPENAI_API_KEY 填入目录`src/config.js`下的 `OPENAI_API_KEY` 中
 
-3. 把 reverseProxyUrl 填入目录`src/config.js`下的 `reverseProxyUrl` 中，如何设置可看下面介绍
+3. 把 reverseProxyUrl 填入目录`src/config.js`下的 `reverseProxyUrl` 中，如何设置可看下面介绍。
+
+> 当然也可以选择白嫖山月老师的代理地址：`https://ai.devtool.tech/proxy/v1/chat/completions`，可以关注[他的项目](https://github.com/shfshanyue/wechat-chatgpt)
 
 4. 然后在终端运行以下命令。如有需要，请在`src/config.js`中配置其它配置变量。
 
