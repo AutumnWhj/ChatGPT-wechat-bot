@@ -24,50 +24,12 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^18.11.11",
-    "chatgpt": "^5.0.5",
-    "p-timeout": "^6.0.0",
+    "@waylaidwanderer/chatgpt-api": "^1.33.1",
     "qrcode-terminal": "^0.12.0",
     "ts-node": "^10.9.1",
     "tslib": "^2.4.1",
     "typescript": "^4.9.3",
     "wechaty": "^1.20.2",
     "wechaty-puppet-wechat": "^1.18.4"
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^17.3.0",
-    "@commitlint/config-conventional": "^17.3.0",
-    "@typescript-eslint/eslint-plugin": "^5.46.0",
-    "@typescript-eslint/parser": "^5.46.0",
-    "commitizen": "^4.2.6",
-    "commitlint-config-cz": "^0.13.3",
-    "eslint": "^8.29.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "husky": "^8.0.2",
-    "lint-staged": "^13.1.0",
-    "prettier": "^2.8.1"
-  },
-  "volta": {
-    "node": "18.12.1"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "{!(package)*.json,*.code-snippets,.!(browserslist)*rc}": [
-      "prettier --write--parser json"
-    ],
-    "package.json": [
-      "prettier --write"
-    ],
-    "*.md": [
-      "prettier --write"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }

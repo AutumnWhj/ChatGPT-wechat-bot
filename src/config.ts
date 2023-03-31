@@ -1,20 +1,16 @@
 export default {
   // 填入你的OPENAI_API_KEY
-  OPENAI_API_KEY: '',
-  // 设置获取消息的重试次数
-  retryTimes: 3,
+  OPENAI_API_KEY: "",
+  // 反向代理地址，简单说就是你的在国外服务器地址，如何获取看README
+  reverseProxyUrl: "",
   // 在群组中设置唤醒微信机器人的关键词
-  groupKey: '',
+  groupKey: "",
   // 在私聊中设置唤醒微信机器人的关键词
-  privateKey: '',
+  privateKey: "",
   // 重置上下文的关键词，如可设置为reset
-  resetKey: 'reset',
-  // 开启会后收到ChatGPT的自动回复
-  autoReply: true,
-  // 根据正则匹配是否自动通过好友验证
-  friendShipRule: /chatgpt|chat/,
-  // 是否在群聊中按照回复的格式进行回复
+  resetKey: "reset",
+  // 是否在群聊中带上提问的问题
   groupReplyMode: true,
-  // 是否在私聊中按照回复的格式进行回复
+  // 是否在私聊中带上提问的问题
   privateReplyMode: false,
 };

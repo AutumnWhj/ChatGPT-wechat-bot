@@ -24,6 +24,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "src/config.tsg.tssrc/config.tsonfig.ts"],
   "exclude": ["node_modules", "lib", "**/*.js"]
 }

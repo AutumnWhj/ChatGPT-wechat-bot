@@ -6,109 +6,108 @@
   </a>
 </p>
 
-> Get a WeChat robot 🤖 based on ChatGPT in a few step.
-> [中文文档](README_ZH.md) | English
-
-
-## ⚠️ Update March 2, 2023
-
-工作原因，暂不维护了，官方推荐项目，有条件的朋友自己集成：
-
-https://github.com/transitive-bullshit/chatgpt-api
-
-https://github.com/PawanOsman/ChatGPT-Official
-
-https://github.com/acheong08/ChatGPT
-
-https://github.com/waylaidwanderer/node-chatgpt-api
-
-https://github.com/acheong08/EdgeGPT
-
-百花齐放了属于是🐶
-OpenAI也开始卖model了
-> the default model is gpt-3.5-turbo which is paid ($0.002/1K Tokens or $1/500K Tokens) 
-
-## ⚠️ Update February 9, 2023
-
-多个用户开始反馈微信暂时封禁, 理由是「使用第三方软件, 外挂, 插件等非官方工具或其他违规行为」，原因待排查，请各位朋友谨慎使用。
-集中讨论：<https://github.com/AutumnWhj/ChatGPT-wechat-bot/issues/158>
-
-## Update February 3, 2023
-
-🔥This package no longer requires any browser hacks – it is now using the official OpenAI completions API with a leaked model🔥
+> 几步即可获得一个基于 ChatGPT 的微信机器人 🤖。
+> [English](README.md) | 中文文档
 
 ## Support
 
-- [x] Support conversation.
-- [x] Can set keywords to reset the previous conversation.
-- [x] Support replying message when mentioning your bot in the group.
-- [x] Set the keywords to wake up the WeChat robot in the group.
-- [x] Support Dockerfile to deploy.
-- [x] Support set retry times when request ChatGPT.
-- [x] Catch conversation error and retry.
-- [ ] Other
+- [x] 支持上下文语境的对话。
+- [x] 支持重置上下文语境，通过关键词(reset)重置对话上下文语境。
+- [x] 支持在群聊@你的机器人 🤖，@机器人即可收到回复。
+- [x] 支持通过关键词唤醒你的机器人，如当在群组中发送“@机器人 hello xxxx”时才会收到回复。
+- [ ] 其他
 
-## Default config
+## Update February 3, 2023
+
+🔥This package no longer requires any browser hacks – it is now using the official OpenAI completions API with a leaked model
+
+## 默认配置
 
 ```
 {
-  // Fill up with OPENAI_API_KEY
-  OPENAI_API_KEY: '',
-  // Setting the number of retries when API error occurs
-  retryTimes: 3,
-  // Setting keyword to wake up in group chat
-  groupKey: '',
-  // Setting keyword to wake up in private chat
-  privateKey: '',
-  // Setting keyword to reset context
-  resetKey: 'reset',
-  // Enabling auto replies from ChatGPT
-  autoReply: true,
-  // Using regular expression to automatically pass friends verification
-  friendShipRule: /chatgpt|chat/,
-  // Using reply mode in group chat
+  // 填入你的OPENAI_API_KEY
+  OPENAI_API_KEY: "",
+  // 反向代理地址，简单说就是你的在国外服务器地址，如何获取看README
+  reverseProxyUrl: "",
+  // 在群组中设置唤醒微信机器人的关键词
+  groupKey: "",
+  // 在私聊中设置唤醒微信机器人的关键词
+  privateKey: "",
+  // 重置上下文的关键词，如可设置为reset
+  resetKey: "reset",
+  // 是否在群聊中带上提问的问题
   groupReplyMode: true,
-  // Using reply mode in private chat
+  // 是否在私聊中带上提问的问题
   privateReplyMode: false,
 }
 ```
 
-## How to start?
+## 开始设置机器人 🤖
 
-1. Firstly, you should have an OpenAI account, then follow the steps below to get your token.
+1. 首先，需要按照以下步骤获你的 ChatGPT 的 OPENAI_API_KEY.
+
+> 获取你的 OPENAI_API_KEY:
+>
+> - 打开 [https://platform.openai.com/overview](https://platform.openai.com/overview) 并登录注册，进入网页。
 
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/2777249/1675413138418-d5df2543-bd37-41cc-a16c-505c5a38e88d.png)
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/2777249/1675413190188-4cf10947-ea7f-479d-9550-0dec9d40c0e2.png?x-oss-process=image%2Fresize%2Cw_1500%2Climit_0)
 
-2. Now, you should **fill your Token value into the `OPENAI_API_KEY` in the directory `src/config.js`**， then run this project on local.
+2. 把 OPENAI_API_KEY 填入目录`src/config.js`下的 `OPENAI_API_KEY` 中
 
-   _If necessary, configure other customization variables in `src/config.js`._
+3. 把 reverseProxyUrl 填入目录`src/config.js`下的 `reverseProxyUrl` 中，如何设置可看下面介绍
+
+4. 然后在终端运行以下命令。如有需要，请在`src/config.js`中配置其它配置变量。
 
 ```javascript
-// install dependencies
-npm i
+  // 安装依赖
+  npm i
+  npm run dev
 
-// start:
-// dev
-npm run dev
+  // 也可以使用pnpm
+  npm i -g pnpm
+  pnpm i
+  pnpm run dev
+
 ```
 
-3. you can see your logs, and scan qrcode to log in wechat.
-
+3. 执行完之后，可以看到终端控制台输出一下信息，扫码登录即可.
    ![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670287138908-cc898c58-6e0a-488f-ae07-ae489508c1be.png#averageHue=%23484948&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=442&id=ub5fee6b7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1200&originWidth=1660&originalType=binary&ratio=1&rotation=0&showTitle=false&size=492370&status=done&style=none&taskId=u233d9139-1ef5-42bf-9f44-354c6565862&title=&width=612)
 
-4. Send a message to your WeChat and you will receive a reply from ChatGPT.
+4. 登录成功，用另外一个微信往你扫码登录的微信发消息，你将会收到来自 ChatGPT 的回复。
+   ![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670288278607-73beed83-1a42-42db-8404-72ba60bf2c53.png#averageHue=%234d4e4d&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=437&id=uff52651b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=874&originWidth=1398&originalType=binary&ratio=1&rotation=0&showTitle=false&size=543479&status=done&style=none&taskId=ub5559ec7-30f8-4c07-a9f8-1445a659835&title=&width=699)![image.png](https://cdn.nlark.com/yuque/0/2023/png/2777249/1680258120110-20343826-d2dc-4fd5-9f94-1a40e43940bb.png?x-oss-process=image%2Fresize%2Cw_1270%2Climit_0)
 
-   ![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670288278607-73beed83-1a42-42db-8404-72ba60bf2c53.png#averageHue=%234d4e4d&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=437&id=uff52651b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=874&originWidth=1398&originalType=binary&ratio=1&rotation=0&showTitle=false&size=543479&status=done&style=none&taskId=ub5559ec7-30f8-4c07-a9f8-1445a659835&title=&width=699)![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670288469581-470c7f45-b3db-4a7e-ab01-32b44b812668.png#averageHue=%23f2f2f2&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=230&id=u97e5b1e5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=460&originWidth=1266&originalType=binary&ratio=1&rotation=0&showTitle=false&size=112172&status=done&style=none&taskId=u7d7970df-3044-4534-910c-fdb7b3d2a5b&title=&width=633)
+## 设置反向代理地址
+
+ChatGPT API 代理<https://hub.docker.com/r/mirrors2/chatgpt-api-proxy>
+
+chatgpt api 代理,已验证 OpenCat,AssisChat,AMA(问天),chathub
+
+可配置好 OPENAI_API_KEY 分享代理地址给他人用.
+
+快速开始
+
+```
+docker run -d -p 80:80 --name chatgpt-api-proxy mirrors2/chatgpt-api-proxy
+
+可选 -e OPENAI_API_KEY={nide_api_key}
+
+```
+
+docker 跑起来之后你的代理地址就生效了：
+
+官方的：`https://api.openai.com/v1/chat/completions`
+
+你的： `你的域名/v1/chat/completions` 或者 `你的服务器ip和端口/v1/chat/completions`
 
 ## QA
 
-1. If your WeChat cannot log in
-   Please check the root directory of your project, whether there is a file —— `WechatEveryDay.memory-card`, if so, please delete it and try it again.
+1. 微信无法取消登录问题
+   可以直接删除`WechatEveryDay.memory-card`文件，重新跑程序
 
-2. This package is ESM-only. It supports: Node.js >= 16.8
+2. 支持的 node 版本: Node.js >= 16.8
 
-3. how to get all response? you can say "continue".
+3. 因为 ChatGPT 的长度限制，如果回复消息不完整，可以对它说"请继续" 或者 "请继续写完"。
 
 <img width="621" alt="image" src="https://user-images.githubusercontent.com/39156049/206840335-a64ee27c-df4f-4e70-8604-669fc9468910.png">
 
@@ -122,6 +121,6 @@ sudo apt-get install  ca-certificates fonts-liberation libasound2 libatk-bridge2
 
 ```
 
-## 👏🏻Contributions
+## 👏🏻 欢迎一起共建
 
-Welcome to contribute your code and ideas🍵.
+欢迎贡献你的代码以及想法 🍵。
