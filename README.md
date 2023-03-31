@@ -17,10 +17,6 @@
 - [x] 支持通过关键词唤醒你的机器人，如当在群组中发送“@机器人 hello xxxx”时才会收到回复。
 - [ ] 其他
 
-## Update February 3, 2023
-
-🔥This package no longer requires any browser hacks – it is now using the official OpenAI completions API with a leaked model
-
 ## 默认配置
 
 ```
