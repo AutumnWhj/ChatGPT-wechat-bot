@@ -66,13 +66,13 @@
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/2777249/1675413138418-d5df2543-bd37-41cc-a16c-505c5a38e88d.png)
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/2777249/1675413190188-4cf10947-ea7f-479d-9550-0dec9d40c0e2.png?x-oss-process=image%2Fresize%2Cw_1500%2Climit_0)
 
-2. 把 OPENAI_API_KEY 填入目录`src/config.js`下的 `OPENAI_API_KEY` 中
+2. 把 OPENAI_API_KEY 填入目录`src/config.ts`下的 `OPENAI_API_KEY` 中
 
-3. 把 reverseProxyUrl 填入目录`src/config.js`下的 `reverseProxyUrl` 中，如何设置可看下面介绍。
+3. 把 reverseProxyUrl 填入目录`src/config.ts`下的 `reverseProxyUrl` 中，如何设置可看下面介绍。
 
 > 当然也可以选择白嫖山月老师的代理地址：`https://ai.devtool.tech/proxy/v1/chat/completions`，可以关注[他的项目](https://github.com/shfshanyue/wechat-chatgpt)
 
-4. 然后在终端运行以下命令。如有需要，请在`src/config.js`中配置其它配置变量。
+4. 然后在终端运行以下命令。如有需要，请在`src/config.ts`中配置其它配置变量。
 
 ```javascript
   // 安装依赖
