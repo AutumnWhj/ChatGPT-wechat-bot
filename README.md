@@ -19,24 +19,10 @@
 
 
 ## 合作
-如果你没有开发能力，可将其接入 AI 机器人管家 平台，可实现以下功能：
-
-**社群管理**，根据关键字自动通过好友，对好友自动分组，添加备注并拉入相对应的群。
-
-**智能对话**，与 ChatGPT 及必应等 AI 结合，来处理各种咨询问题。
-
-**智能客服**，将客服知识库喂入机器人，使其能够作为专业的客服回答客户问题。(后续支持千牛等电商平台)
-
-**定时任务**，每天定时定点在微信群发送行业信息促进活跃度。如果是中学高校或教育集团，可以发送昨日学员学习信息统计等
-
-如果你想委托二次开发，也支持二次定制化开发。
-
-<img  height="240" alt="image" src="https://static.shanyue.tech/images/23-03-22/clipboard-5137.800093.webp">
-
 
 ## 默认配置
 
-```
+``` javascript
 {
   // 填入你的OPENAI_API_KEY
   OPENAI_API_KEY: "",
@@ -102,11 +88,10 @@ chatgpt api 代理,已验证 OpenCat,AssisChat,AMA(问天),chathub
 
 快速开始
 
-```
+``` bash
 docker run -d -p 80:80 --name chatgpt-api-proxy mirrors2/chatgpt-api-proxy
 
-可选 -e OPENAI_API_KEY={nide_api_key}
-
+# 可选 -e OPENAI_API_KEY={nide_api_key}
 ```
 
 docker 跑起来之后你的代理地址就生效了：
@@ -129,11 +114,10 @@ docker 跑起来之后你的代理地址就生效了：
 4. Error: Failed to launch the browser process puppeteer
    refer to <https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix>
 
-```
-// ubuntu
+``` bash
+# ubuntu
 sudo apt-get install chromium-browser
 sudo apt-get install  ca-certificates fonts-liberation libasound2 libatk-bridge2.0-0 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 lsb-release wget xdg-utils
-
 ```
 
 ## 👏🏻 欢迎一起共建
