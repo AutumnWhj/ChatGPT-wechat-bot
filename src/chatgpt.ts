@@ -1,5 +1,10 @@
 import { ChatGPTClient } from "@waylaidwanderer/chatgpt-api";
 import config from "./config.js";
+// import OpenAI from "openai-api";
+import OpenAI, { toFile } from 'openai';
+
+const OPENAI_API_KEY = config.OPENAI_API_KEY;
+const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
 const clientOptions = {
   // (Optional) Support for a reverse proxy for the completions endpoint (private API server).
