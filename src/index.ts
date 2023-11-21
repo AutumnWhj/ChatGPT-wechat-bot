@@ -2,6 +2,16 @@ import { WechatyBuilder } from "wechaty";
 import qrcodeTerminal from "qrcode-terminal";
 import config from "./config.js";
 import ChatGPT from "./chatgpt.js";
+import dotenv from 'dotenv';
+import path from 'path';
+
+
+console.log("current: ", process.cwd());
+dotenv.config();
+// const API_KEY = process.env.OPENAI_API_KEY;
+console.log('Environment Variables:', process.env.OPENAI_API_KEY);
+// console.log("API_KEY: ", API_KEY);
+
 
 let bot: any = {};
 const startTime = new Date();
