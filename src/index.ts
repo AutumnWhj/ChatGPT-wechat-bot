@@ -12,9 +12,17 @@ async function onMessage(msg) {
   if (msg.date() < startTime) {
     return;
   }
+
+  // talker means sender
   const contact = msg.talker();
+
+  // receiver means the bot
   const receiver = msg.to();
+
+  // content means message
   const content = msg.text().trim();
+
+  // room means group
   const room = msg.room();
   const alias = (await contact.alias()) || (await contact.name());
   const isText = msg.type() === bot.Message.Type.Text;
@@ -56,8 +64,9 @@ async function onMessage(msg) {
   }
 }
 
+// 在console端显示二维码
 function onScan(qrcode) {
-  qrcodeTerminal.generate(qrcode, { small: true }); // 在console端显示二维码
+  qrcodeTerminal.generate(qrcode, { small: true }); 
   const qrcodeImageUrl = [
     "https://api.qrserver.com/v1/create-qr-code/?data=",
     encodeURIComponent(qrcode),
@@ -66,12 +75,14 @@ function onScan(qrcode) {
   console.log(qrcodeImageUrl);
 }
 
+// function to be called when bot login
 async function onLogin(user) {
   console.log(`${user} has logged in`);
   const date = new Date();
   console.log(`Current time:${date}`);
 }
 
+// function to be called when bot logout
 function onLogout(user) {
   console.log(`${user} has logged out`);
 }

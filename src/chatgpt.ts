@@ -46,41 +46,66 @@ export default class ChatGPT {
   private chatGPT: any;
   private chatOption: any;
   constructor() {
-    this.chatGPT = new ChatGPTClient(
-      config.OPENAI_API_KEY,
-      {
-        ...clientOptions,
-        reverseProxyUrl: config.reverseProxyUrl,
-      },
-      cacheOptions
-    );
+    this.chatGPT = new OpenAI({ apiKey: OPENAI_API_KEY });
+    //   this.chatGPT = new ChatGPTClient(
+    //     config.OPENAI_API_KEY,
+    //     {
+    //       ...clientOptions,
+    //       reverseProxyUrl: config.reverseProxyUrl,
+    //     },
+    //     cacheOptions
+    //   );
     this.chatOption = {};
-    // this.test();
+    // // this.test();
   }
-  async test() {
-    const response = await this.chatGPT.sendMessage("hello");
-    console.log("response test: ", response);
-  }
+
+  // async test() {
+  //   const response = await this.chatGPT.sendMessage("hello");
+  //   console.log("response test: ", response);
+  // }
+
+
   async getChatGPTReply(content, contactId) {
-    const data = await this.chatGPT.sendMessage(
-      content,
-      this.chatOption[contactId]
-    );
-    const { response, conversationId, messageId } = data;
-    this.chatOption = {
-      [contactId]: {
-        conversationId,
-        parentMessageId: messageId,
-      },
-    };
-    console.log("response: ", response);
-    // response is a markdown-formatted string
-    return response;
+    // print the content
+    await console.log("content: ", content);
+    await console.log("content: ", content);
+    await console.log(this.chatOption);
+
+    const context = "把你当做一个人，你的名字叫做刘嘉骅，你的身份是一个大学生并且学习计算机专业，你喜欢打篮球和德州扑克/你不是一个机器人，你平时很开心你也不要说你是机器人";
+
+    // Check if there's an existing conversation
+    if (!this.chatOption[contactId]) {
+      this.chatOption[contactId] = { messages: [{ role: "system", content: context }] };
+    }
+    
+    // Add the user's message to the conversation
+    this.chatOption[contactId].messages.push({ role: "user", content: content });
+  
+    try {
+      const response = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo", // or the latest model
+        messages: this.chatOption[contactId].messages,
+        
+      });
+  
+      // Add ChatGPT's response to the conversation
+      const chatGPTMessage = response.choices[0].message.content;
+      console.log("chatGPTMessage: ", chatGPTMessage);
+
+      this.chatOption[contactId].messages.push({ role: "assistant", content: chatGPTMessage });
+  
+      return chatGPTMessage;
+    } catch (e) {
+      console.error(e);
+      throw e; // Or handle errors as you see fit
+    }
   }
+  
 
   async replyMessage(contact, content) {
     const { id: contactId } = contact;
     try {
+      // reset if reset keyword is detected
       if (
         content.trim().toLocaleLowerCase() ===
         config.resetKey.toLocaleLowerCase()
@@ -92,6 +117,8 @@ export default class ChatGPT {
         await contact.say("对话已被重置");
         return;
       }
+
+      // get response from ChatGPT
       const message = await this.getChatGPTReply(content, contactId);
 
       if (
@@ -109,7 +136,7 @@ export default class ChatGPT {
       if (e.message.includes("timed out")) {
         await contact.say(
           content +
-            "\n-----------\nERROR: Please try again, ChatGPT timed out for waiting response."
+            "This question is so hard and I may not have a answer for you now.."
         );
       }
     }
