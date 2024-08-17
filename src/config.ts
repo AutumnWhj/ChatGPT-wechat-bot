@@ -1,9 +1,25 @@
 export default {
-  // 填入你的OPENAI_API_KEY
-  OPENAI_API_KEY: "",
-  // 反向代理地址，简单说就是你的在国外服务器地址，如何获取看README
-  // 可换成你自己的，白嫖代理地址 https://ai.devtool.tech/proxy/v1/chat/completions
-  reverseProxyUrl: "https://ai.devtool.tech/proxy/v1/chat/completions",
+  // 填入你的OPENAI认证密钥
+  OPENAI_API_KEY: "sk-FQB1FxsQa7GFtgCspqKhm43EmFvkXNyCVfVGsVycCuwDv2rz",
+  // 填入你的OPENAI代理地址
+  OPENAI_BASE_URL: "http://127.0.0.1:11434/v1",
+  // 填入你的OPENAI模型数组
+  models: ["llama3.1:8b", "qwen2:7b"],
+  /*
+  models: [
+    "ERNIE-Speed-8K",
+    "ERNIE-Speed-128K",
+    "ERNIE-Speed-AppBuilder",
+    "ERNIE-Lite-8K",
+    "ERNIE-Lite-128K ",
+    "ERNIE-Lite-8K-0922",
+    "ERNIE-Tiny-8K",
+    "spark-lite",
+    "hunyuan-lite",
+    "abab6-chat",
+    "moonshot-v1-8k"
+  ],
+  */
   // 在群组中设置唤醒微信机器人的关键词
   groupKey: "",
   // 在私聊中设置唤醒微信机器人的关键词

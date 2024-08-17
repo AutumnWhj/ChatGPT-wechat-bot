@@ -24,10 +24,27 @@
 
 ``` javascript
 {
-  // 填入你的OPENAI_API_KEY
-  OPENAI_API_KEY: "",
-  // 反向代理地址，简单说就是你的在国外服务器地址，如何获取看README
-  reverseProxyUrl: "",
+  // 填入你的OPENAI认证密钥
+  OPENAI_API_KEY: "sk-FQB1FxsQa7GFtgCspqKhm43EmFvkXNyCVfVGsVycCuwDv2rz",
+  // 填入你的OPENAI代理地址
+  OPENAI_BASE_URL: "http://127.0.0.1:11434/v1",
+  // 填入你的OPENAI模型数组
+  models: ["llama3.1:8b", "qwen2:7b"],
+  /*
+  models: [
+    "ERNIE-Speed-8K",
+    "ERNIE-Speed-128K",
+    "ERNIE-Speed-AppBuilder",
+    "ERNIE-Lite-8K",
+    "ERNIE-Lite-128K ",
+    "ERNIE-Lite-8K-0922",
+    "ERNIE-Tiny-8K",
+    "spark-lite",
+    "hunyuan-lite",
+    "abab6-chat",
+    "moonshot-v1-8k"
+  ],
+  */
   // 在群组中设置唤醒微信机器人的关键词
   groupKey: "",
   // 在私聊中设置唤醒微信机器人的关键词
@@ -54,9 +71,7 @@
 
 2. 把 OPENAI_API_KEY 填入目录`src/config.ts`下的 `OPENAI_API_KEY` 中
 
-3. 把 reverseProxyUrl 填入目录`src/config.ts`下的 `reverseProxyUrl` 中，如何设置可看下面介绍。
-
-> 当然也可以选择白嫖山月老师的代理地址：`https://ai.devtool.tech/proxy/v1/chat/completions`，可以关注[他的项目](https://github.com/shfshanyue/wechat-chatgpt)
+3. 把 OPENAI_BASE_URL 填入目录`src/config.ts`下的 `OPENAI_BASE_URL` 中，如何设置可看下面介绍。
 
 4. 然后在终端运行以下命令。如有需要，请在`src/config.ts`中配置其它配置变量。
 
@@ -78,7 +93,9 @@
 4. 登录成功，用另外一个微信往你扫码登录的微信发消息，你将会收到来自 ChatGPT 的回复。
    ![image.png](https://cdn.nlark.com/yuque/0/2022/png/2777249/1670288278607-73beed83-1a42-42db-8404-72ba60bf2c53.png#averageHue=%234d4e4d&clientId=uf4023d0a-0da7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=437&id=uff52651b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=874&originWidth=1398&originalType=binary&ratio=1&rotation=0&showTitle=false&size=543479&status=done&style=none&taskId=ub5559ec7-30f8-4c07-a9f8-1445a659835&title=&width=699)![image.png](https://cdn.nlark.com/yuque/0/2023/png/2777249/1680258120110-20343826-d2dc-4fd5-9f94-1a40e43940bb.png?x-oss-process=image%2Fresize%2Cw_1270%2Climit_0)
 
-## 设置反向代理地址
+## 设置反向代理
+
+- 注意：以下反向代理仅支持ChatGPT)
 
 ChatGPT API 代理<https://hub.docker.com/r/mirrors2/chatgpt-api-proxy>
 
@@ -96,13 +113,14 @@ docker run -d -p 80:80 --name chatgpt-api-proxy mirrors2/chatgpt-api-proxy
 
 docker 跑起来之后你的代理地址就生效了：
 
-官方的：`https://api.openai.com/v1/chat/completions`
+官方的：`https://api.openai.com/v1`
 
-你的： `你的域名/v1/chat/completions` 或者 `你的服务器ip和端口/v1/chat/completions`
+你的： `你的域名/v1` 或者 `你的服务器ip和端口/v1`
 
 ## QA
 
 1. 微信无法取消登录问题
+
    可以直接删除`WechatEveryDay.memory-card`文件，重新跑程序
 
 2. 支持的 node 版本: Node.js >= 16.8
@@ -124,3 +142,10 @@ sudo apt-get install  ca-certificates fonts-liberation libasound2 libatk-bridge2
 
 欢迎贡献你的代码以及想法 🍵。
 
+## 原作者
+
+forked from [AutumnWhj/ChatGPT-wechat-bot](https://github.com/AutumnWhj/ChatGPT-wechat-bot)
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=lopins/ChatGPT-wechat-bot&type=Date)](https://star-history.com/#lopins/ChatGPT-wechat-bot&Date)
