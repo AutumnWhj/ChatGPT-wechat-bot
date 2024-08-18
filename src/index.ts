@@ -79,7 +79,7 @@ async function initProject() {
   try {
     chatGPTClient = new ChatGPT();
     bot = WechatyBuilder.build({
-      name: "WechatEveryDay", //账号记录
+      name: "WechatEveryDay", //机器人名字
       puppet: "wechaty-puppet-wechat", // 如果有token，记得更换对应的puppet
       puppetOptions: {
         uos: true,
