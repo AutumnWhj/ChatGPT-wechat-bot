@@ -59,10 +59,9 @@ async function onMessage(msg) {
 function onScan(qrcode) {
   qrcodeTerminal.generate(qrcode, { small: true }); // 在console端显示二维码
   const qrcodeImageUrl = [
-    "https://api.qrserver.com/v1/create-qr-code/?data=",
+    "https://qun.qq.com/qrcode/index?size=300&data=", 
     encodeURIComponent(qrcode),
   ].join("");
-
   console.log(qrcodeImageUrl);
 }
 
@@ -80,7 +79,7 @@ async function initProject() {
   try {
     chatGPTClient = new ChatGPT();
     bot = WechatyBuilder.build({
-      name: "WechatEveryDay",
+      name: "WechatEveryDay", //账号记录
       puppet: "wechaty-puppet-wechat", // 如果有token，记得更换对应的puppet
       puppetOptions: {
         uos: true,
