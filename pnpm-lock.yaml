@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@types/node':
-        specifier: ^18.11.11
+        specifier: ^18.19.44
         version: 18.19.44
       openai:
         specifier: ^4.56.0
@@ -18,13 +18,13 @@ importers:
         specifier: ^0.12.0
         version: 0.12.0
       ts-node:
-        specifier: ^10.9.1
+        specifier: ^10.9.2
         version: 10.9.2(@swc/core@1.7.11)(@types/node@18.19.44)(typescript@4.9.5)
       tslib:
-        specifier: ^2.4.1
+        specifier: ^2.6.3
         version: 2.6.3
       typescript:
-        specifier: ^4.9.3
+        specifier: ^4.9.5
         version: 4.9.5
       wechaty:
         specifier: ^1.20.2
