@@ -22,12 +22,12 @@
   "author": "Jin",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^18.11.11",
-    "@waylaidwanderer/chatgpt-api": "^1.33.1",
+    "@types/node": "^18.19.44",
+    "openai": "^4.56.0",
     "qrcode-terminal": "^0.12.0",
-    "ts-node": "^10.9.1",
-    "tslib": "^2.4.1",
-    "typescript": "^4.9.3",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.6.3",
+    "typescript": "^4.9.5",
     "wechaty": "^1.20.2",
     "wechaty-puppet-wechat": "^1.18.4"
   }
