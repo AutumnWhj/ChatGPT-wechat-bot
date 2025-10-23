@@ -1,7 +1,7 @@
 {
   "name": "chatgpt-wechatbot",
   "version": "1.0.0",
-  "description": "",
+  "description": "微信机器人助手",
   "main": "lib/bundle.cjs.js",
   "module": "lib/bundle.esm.js",
   "type": "module",
