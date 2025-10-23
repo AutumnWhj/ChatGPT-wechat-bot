@@ -50,11 +50,10 @@ export default class ChatGPT {
       cacheOptions
     );
     this.chatOption = {};
-    // this.test();
   }
   async test() {
-    const response = await this.chatGPT.sendMessage("hello");
-    console.log("response test: ", response);
+    // const response = await this.chatGPT.sendMessage("hello");
+    // console.log("response test: ", response);
   }
   async getChatGPTReply(content, contactId) {
     const data = await this.chatGPT.sendMessage(
@@ -68,7 +67,6 @@ export default class ChatGPT {
         parentMessageId: messageId,
       },
     };
-    console.log("response: ", response);
     // response is a markdown-formatted string
     return response;
   }
@@ -100,6 +98,7 @@ export default class ChatGPT {
         await contact.say(message);
       }
     } catch (e: any) {
+      // @ts-expect-error
       console.error(e);
       if (e.message.includes("timed out")) {
         await contact.say(
